@@ -1,0 +1,231 @@
+---
+title: "Variables"
+subtitle: "[Reproducible data treatment with R](http://lmi.cnrs.fr/r/variables-booleans-and-strings.html)"
+author: Colin Bousige
+output: 
+    learnr::tutorial:
+        progressive: true
+        allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+# rmarkdown::run("variables.Rmd")
+library(learnr)
+gradethis::gradethis_setup()
+```
+
+## Variables
+
+
+This code computes the answer to one plus one, change it so it computes two plus two:
+
+```{r addition, exercise=TRUE}
+1 + 1
+```
+
+---
+
+Attribute to `x` the value `2.5`, and compute the exponential of its squared value:
+
+```{r qblank, exercise=TRUE, exercise.blanks = "___"}
+x <- ___
+```
+
+
+```{r qblank-solution, exercise.reveal_solution = FALSE}
+x <- 2.5
+exp(x^2)
+```
+
+```{r qblank-code-check}
+grade_code()
+```
+
+---
+
+Attribute the string `"100.3"` to the variable `x`, and the value 99.6 to the variable `y`:
+```{r q0, exercise=TRUE, exercise.blanks = "___"}
+x <- ___
+y <- ___
+```
+
+```{r q0-solution, exercise.reveal_solution = FALSE}
+x <- "100.3"
+y <- 99.6
+```
+
+```{r q0-code-check}
+grade_code()
+```
+
+----
+
+Assuming the `x` and `y` defined above, modify the following code so that it does not return an error:
+
+```{r q1-setup, include=FALSE}
+x <- "100.3"
+y <- 99.6
+```
+
+```{r q1, exercise=TRUE}
+floor(x) - ceiling(y)
+```
+
+```{r q1-hint}
+# look into 
+as.numeric()
+```
+
+```{r q1-solution, exercise.reveal_solution = FALSE}
+floor(as.numeric(x)) - ceiling(y)
+```
+
+```{r q1-code-check}
+grade_code()
+```
+
+
+## Booleans
+
+I defined two random variables `x` and `y`. Are the two variables equal?
+
+```{r qtest-setup, include=FALSE}
+x <- runif(1)
+y <- runif(1)
+```
+
+```{r qtest, exercise=TRUE, exercise.blanks = "___"}
+
+```
+
+```{r qtest-solution, exercise.reveal_solution = FALSE}
+x == y
+```
+
+```{r qtest-code-check}
+grade_code()
+```
+
+---
+
+I defined two random variables `x` and `y`. Using the `ifelse()`{.R} function, print "x is larger than y" or "x is smaller than y".
+
+```{r qtest2-setup, include=FALSE}
+x <- runif(1)
+y <- runif(1)
+```
+
+```{r qtest2, exercise=TRUE, exercise.blanks = "___"}
+ifelse(test, yes, no)
+```
+
+```{r qtest2-solution, exercise.reveal_solution = FALSE}
+ifelse(x < y, "x is smaller than y", "x is larger than y")
+```
+
+```{r qtest2-code-check}
+grade_code()
+```
+
+
+--- 
+
+Without running the code, what do you think will be the output of this code:
+```{r q2, exercise=TRUE}
+cos(pi/2)==cos(3*pi/2)
+```
+
+```{r q3, exercise=TRUE}
+cos(pi/2)-cos(3*pi/2)
+```
+
+In fact, `.Machine$double.eps` is the smallest positive floating-point number x such that `1 + x != 1`. It depends on the machine (computer) you are running on:
+```{r machine, exercise=TRUE}
+.Machine$double.eps
+(cos(pi / 2) - cos(3 * pi / 2)) > .Machine$double.eps
+all.equal(cos(pi/2),cos(3*pi/2))
+```
+
+
+## Strings
+
+Save your name as a string in a variable, and print "My name is: yourname" using this variable.
+
+```{r qstring1, exercise=TRUE, exercise.blanks = "___"}
+name <- ___
+```
+
+```{r qstring1-hint}
+name <- "___"
+```
+
+```{r qstring1-solution, exercise.reveal_solution = FALSE}
+name <- "Colin"
+paste("My name is:", name)
+```
+
+```{r qstring1-code-check}
+grade_code()
+```
+
+----
+
+Replace all "e" by "A" in the following string:
+
+```{r qstring2, exercise=TRUE, exercise.blanks = "___"}
+x <- "aaaeebbbeebiieelakdceee"
+gsub(___, ___, ___)
+```
+
+```{r qstring2-solution, exercise.reveal_solution = FALSE}
+x <- "aaaeebbbeebiieelakdceee"
+gsub("e", "A", x)
+```
+
+```{r qstring2-code-check}
+grade_code()
+```
+
+---
+
+Do the same using the `stringr` function `str_replace_all()`{.R} (take a look at the [cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/strings.pdf)):
+
+```{r qstringr, exercise=TRUE, exercise.blanks = "___"}
+library(stringr)
+x <- "aaaeebbbeebiieelakdceee"
+str_replace_all(___, ___, ___)
+```
+
+```{r qstringr-solution, exercise.reveal_solution = FALSE}
+library(stringr)
+x <- "aaaeebbbeebiieelakdceee"
+str_replace_all(x, "e", "A")
+```
+
+```{r qstringr-code-check}
+grade_code()
+```
+
+
+---
+
+Find the index of all the `"e"` characters in the string, using base functions and `stringr` ones:
+
+```{r qstringr2, exercise=TRUE, exercise.blanks = "___"}
+x <- "aaaeebbbeebiieelakdceee"
+gregexpr(___, ___)
+library(stringr)
+str_____(___, ___)
+```
+
+```{r qstringr2-solution, exercise.reveal_solution = FALSE}
+x <- "aaaeebbbeebiieelakdceee"
+gregexpr("e", x)
+library(stringr)
+str_locate_all(x, "e")
+```
+
+```{r qstringr2-code-check}
+grade_code()
+```
