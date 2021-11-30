@@ -1,13 +1,4 @@
 
-<style type="text/css">
-blockquote {
-  background: #E9F9FF;
-  border-left: 5px solid #026086;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-}
-</style>
-
 > **This is a work in progress!**
 
 # Description
@@ -78,12 +69,12 @@ read.csv(tutoR_example("CO2_emission.csv"))
 
 List of functions included in the package:
 
--   `dxdy : function (x, y, n = 1)`
--   `Gaussian : function (x, x0, FWHM, A = 1, y0 = 0)`
--   `integ : function (x, y)`
--   `Lorentzian : function (x, x0 = 0, FWHM = 1, A = 1, y0 = 0)`
--   `norm01 : function (x)`
--   `Pruby : function (w, laser = 532, P = -1, w0 = -1, l = FALSE)`
--   `Rshift_to_lambda : function (w, laser = 532)`
--   `sinc : function (x)`
--   `tutoR_example : function (pattern = NULL)`
+-   [`dxdy()`](R/dxdy.R)
+-   [`Gaussian()`](R/Gaussian.R)
+-   [`integ()`](R/integ.R)
+-   [`Lorentzian()`](R/Lorentzian.R)
+-   [`norm01()`](R/norm01.R)
+-   [`Pruby()`](R/Pruby.R)
+-   [`Rshift_to_lambda()`](R/Rshift_to_lambda.R)
+-   [`sinc()`](R/sinc.R)
+-   [`tutoR_example()`](R/tutoR_example.R)
