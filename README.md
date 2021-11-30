@@ -1,4 +1,13 @@
 
+<style type="text/css">
+blockquote {
+  background: #E9F9FF;
+  border-left: 5px solid #026086;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+}
+</style>
+
 > **This is a work in progress!**
 
 # Description
