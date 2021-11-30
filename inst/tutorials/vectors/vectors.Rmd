@@ -9,21 +9,498 @@ output:
 runtime: shiny_prerendered
 ---
 
-## section 1
-
 ```{r setup, include=FALSE}
+# rmarkdown::run("vectors.Rmd")
 library(learnr)
+library(tidyverse)
+gradethis::gradethis_setup()
 ```
 
-This code computes the answer to one plus one, change it so it computes two plus two:
+## Exercise 1
 
-```{r addition, exercise=TRUE}
-1 + 1
+### 
+
+Consider two vectors `x` and `y` such as:
+```{r}
+x <- 1:5
+y <- seq(0, 4, along=x)
+```
+
+Without typing it into Rstudio, what are the values of `x`, `y`, and `x*y`?
+```{r q0-setup, include=FALSE}
+x <- 1:5
+y <- seq(0, 4, along = x)
+```
+
+```{r q0, exercise=TRUE, exercise.blanks = "___+"}
+
 ```
 
 
-## section 2
+###
 
-```{r head, exercise=TRUE}
-head(mtcars)
+Consider two vectors `a` and `b` such as:
+
+```{r}
+a <- c(1,5,4,3,6)
+b <- c(3,5,2,1,9)
+```
+Without typing it into Rstudio, what is the value of: `a<=b`{.R}?
+
+```{r q1, exercise=TRUE, exercise.blanks = "___+"}
+a <- c(1, 5, 4, 3, 6)
+b <- c(3, 5, 2, 1, 9)
+___
+```
+
+
+###
+
+If 
+```{r}
+x <- c(1:12, NA, 5:2)
+```
+Without typing it into Rstudio, what is the value of: `length(x)`{.R}
+
+```{r q2, exercise=TRUE, exercise.blanks = "___+"}
+x <- ___
+___
+```
+
+###
+
+If 
+```{r}
+a <- 12:5
+```
+Without typing it into Rstudio, what is the value of: `is.numeric(a)`{.R}
+
+```{r q3, exercise=TRUE, exercise.blanks = "___+"}
+a <- 12:5
+is.numeric(a)
+```
+
+###
+
+Consider two vectors `x` and `y` such as:
+```{r}
+x <- 12:4
+y <- c(0, 1, 2, 0, 1, 2, 0, 1, 2)
+```
+Without typing it into Rstudio, what is the value of: `which(!is.finite(x/y))`{.R}?
+
+```{r q4, exercise=TRUE, exercise.blanks = "___+"}
+x <- 12:4
+y <- c(0, 1, 2, 0, 1, 2, 0, 1, 2)
+___
+```
+
+###
+
+If 
+```{r}
+x <- c('blue', 'red', 'green', 'yellow')
+```
+Without typing it into Rstudio, what is the value of: `is.character(x)`{.R}?
+
+```{r q5, exercise=TRUE, exercise.blanks = "___+"}
+x <- ___
+___
+```
+
+###
+
+If 
+```{r}
+x <- c('blue', 10, 'green', 20)
+```
+Without typing it into Rstudio, what is the value of: `is.character(x)`{.R}?
+
+```{r q6, exercise=TRUE, exercise.blanks = "___+"}
+x <- ___
+___
+```
+
+###
+
+Assign value 5 to the variable x.
+
+Is there a difference between `1:x-1`{.R} and `1:(x-1)`{.R} ?
+
+Explain.
+
+```{r q7, exercise=TRUE, exercise.blanks = "___+"}
+___
+___
+___
+```
+
+### 
+
+Generate the sequence `9, 18, 27, 36, 45, 54, 63, 72, 81, 90`{.R} in 4 different manners.
+
+```{r q8, exercise=TRUE, exercise.blanks = "___+"}
+c(___)
+seq(___)
+___:___
+___
+```
+
+```{r q8-solution, exercise.reveal_solution = TRUE}
+c(9, 18, 27, 36, 45, 54, 63, 72, 81, 90)
+seq(9, 90, by = 9)
+seq(9, 90, length = 10)
+seq(1, 10, 1)*9
+1:10*9
+```
+
+
+###
+
+```{r quizz, echo=FALSE}
+quiz(
+question("If `x <- c(\"w\", \"h\", \"f\", \"g\", \"k\")`, what will be the output for `x[c(2,3)]`?",
+  answer("\"h\", \"f\"", correct = TRUE),
+  answer("\"h\""),
+  answer("\"f\""),
+  incorrect = "Incorrect!"
+),
+question("Without typing it into Rstudio, if `x <- c(\"w\", \"h\", \"f\", \"g\", \"k\")`, what will be the third value in the index vector operation `x[c(2, 4, 4)]`?",
+  answer("\"h\""),
+  answer("NA"),
+  answer("\"g\"", correct = TRUE),
+  incorrect = "Incorrect!"
+),
+question("Without typing it into Rstudio, if `x <- c(\"w\", \"h\", \"f\", \"g\", \"k\")`, what will be the fourth value in the index vector operation `x[-2]`",
+  answer("\"h\""),
+  answer("\"g\""),
+  answer("\"k\"", correct = TRUE),
+  incorrect = "Incorrect!"
+)
+)
+```
+
+
+###
+
+Let `a <- c(2, 4, 6, 8)`{.R} and `b <- c(TRUE, FALSE, TRUE, FALSE)`{.R}.
+
+Without typing it into Rstudio, what will be the output for the R expression `max(a[b])`{.R}?
+
+```{r q9, exercise=TRUE, exercise.blanks = "___+"}
+
+```
+
+
+## Exercise 2
+
+Let's create a named vector containing age of the students in the class, the names of each value being the first name of the students. 
+
+```{r exo2-1, exercise=TRUE, exercise.blanks = "___+"}
+students <- c(
+    "John" = 35,
+    "Jane" = 36
+)
+students
+```
+
+Then (do it in Rstudio this time):
+
+- Compute the average age and its standard deviation
+- Compute the median age
+- What is the maximum, minimum and range of the ages in the class?
+- What are all the student names in the class?
+- Print the sorted ages by increasing and decreasing order
+- Print the ages sorted by alphabetically ordered names (increasing and decreasing)
+- Show a histogram of the ages distribution using `hist()`{.R} and play with the parameter `breaks` to modify the histogram
+- Show a boxplot of the ages distribution using `boxplot()`{.R}
+
+
+## Exercise 3
+
+Let's say we have this population data for these French cities for the two years 1962 and 2012:
+```{r exo3-setup, echo=FALSE}
+cities <- c(
+    "Angers", "Bordeaux", "Brest", "Dijon", "Grenoble", "Le Havre",
+    "Le Mans", "Lille", "Lyon", "Marseille", "Montpellier", "Nantes",
+    "Nice", "Paris", "Reims", "Rennes", "Saint-Etienne", "Strasbourg",
+    "Toulon", "Toulouse"
+)
+pop_1962 <- c(
+    115273, 278403, 136104, 135694, 156707, 187845, 132181, 239955,
+    535746, 778071, 118864, 240048, 292958, 2790091, 134856, 151948,
+    210311, 228971, 161797, 323724
+)
+pop_2012 <- c(
+    149017, 241287, 139676, 152071, 158346, 173142, 143599, 228652,
+    496343, 852516, 268456, 291604, 343629, 2240621, 181893, 209860,
+    171483, 274394, 164899, 453317
+)
+df <- tibble::tibble(cities, "1962" = pop_1962, "2012" = pop_2012) %>%
+    pivot_longer(cols = -cities, names_to = "year", values_to = "pop") %>%
+    pivot_wider(names_from = "cities", values_from = "pop")
+knitr::kable(df[,1:10])
+knitr::kable(df[,11:ncol(df)])
+```
+
+###
+
+Create a `cities` vector containing all the cities listed above:
+
+```{r exo3-1, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup"}
+cities <- c(___)
+```
+
+```{r exo3-1-solution, exercise.reveal_solution = FALSE}
+cities <- c(
+    "Angers", "Bordeaux", "Brest", "Dijon", "Grenoble", "Le Havre",
+    "Le Mans", "Lille", "Lyon", "Marseille", "Montpellier", "Nantes",
+    "Nice", "Paris", "Reims", "Rennes", "Saint-Etienne", "Strasbourg",
+    "Toulon", "Toulouse"
+)
+```
+
+```{r exo3-1-code-check}
+grade_code()
+```
+
+###
+
+Create a `pop_1962` and `pop_2012` vectors containing the populations of each city at these years. Print the 2 vectors. 
+
+```{r exo3-2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup"}
+pop_1962 <- c(___)
+pop_2012 <- c(___)
+```
+
+```{r exo3-2-solution, exercise.reveal_solution = FALSE}
+pop_1962 <- c(
+    115273, 278403, 136104, 135694, 156707, 187845, 132181, 239955,
+    535746, 778071, 118864, 240048, 292958, 2790091, 134856, 151948,
+    210311, 228971, 161797, 323724
+)
+pop_2012 <- c(
+    149017, 241287, 139676, 152071, 158346, 173142, 143599, 228652,
+    496343, 852516, 268456, 291604, 343629, 2240621, 181893, 209860,
+    171483, 274394, 164899, 453317
+)
+```
+
+```{r exo3-2-code-check}
+grade_code()
+```
+
+###
+
+Use `names()`{.R} to name values of `pop_1962` and `pop_2012`. Print the 2 vectors again. Are there any change?
+
+```{r exo3-3, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup"}
+names(pop_1962) <- ___
+names(pop_2012) <- ___
+```
+
+
+```{r exo3-3-solution, exercise.reveal_solution = FALSE}
+names(pop_1962) <- cities
+names(pop_2012) <- cities
+pop_1962
+pop_2012
+```
+
+```{r exo3-3-code-check}
+grade_code()
+```
+
+```{r exo3-setup2}
+cities <- c(
+    "Angers", "Bordeaux", "Brest", "Dijon", "Grenoble", "Le Havre",
+    "Le Mans", "Lille", "Lyon", "Marseille", "Montpellier", "Nantes",
+    "Nice", "Paris", "Reims", "Rennes", "Saint-Etienne", "Strasbourg",
+    "Toulon", "Toulouse"
+)
+pop_1962 <- c(
+    115273, 278403, 136104, 135694, 156707, 187845, 132181, 239955,
+    535746, 778071, 118864, 240048, 292958, 2790091, 134856, 151948,
+    210311, 228971, 161797, 323724
+)
+pop_2012 <- c(
+    149017, 241287, 139676, 152071, 158346, 173142, 143599, 228652,
+    496343, 852516, 268456, 291604, 343629, 2240621, 181893, 209860,
+    171483, 274394, 164899, 453317
+)
+names(pop_2012) <- names(pop_1962) <- cities
+```
+
+###
+
+What are the cities with more than 200000 people in 1962? For these, how many residents in 2012?
+
+```{r exo3-4, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup2"}
+pop_1962 > 200000
+```
+
+```{r exo3-4-solution, exercise.reveal_solution = TRUE}
+cities200k <- cities[pop_1962 > 200000]
+cities200k
+pop_2012[cities200k]
+```
+
+```{r exo3-4-code-check}
+grade_code()
+```
+
+
+### 
+
+What is the population evolution of Montpellier and Nantes?
+
+```{r exo3-5, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup2"}
+pop_2012 - pop_1962
+```
+
+```{r exo3-5-solution, exercise.reveal_solution = TRUE}
+pop_2012["Montpellier"] - pop_1962["Montpellier"]
+pop_2012["Nantes"] - pop_1962["Nantes"]
+```
+
+```{r exo3-5-code-check}
+grade_code()
+```
+
+### 
+
+Create a `pop_diff` vector to store population change between 1962 and 2012
+
+```{r exo3-6, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup2"}
+pop_diff <- ___
+```
+
+```{r exo3-6-solution, exercise.reveal_solution = TRUE}
+pop_diff <- pop_2012 - pop_1962
+```
+
+```{r exo3-6-code-check}
+grade_code()
+```
+
+### 
+
+```{r exo3-setup3}
+cities <- c(
+    "Angers", "Bordeaux", "Brest", "Dijon", "Grenoble", "Le Havre",
+    "Le Mans", "Lille", "Lyon", "Marseille", "Montpellier", "Nantes",
+    "Nice", "Paris", "Reims", "Rennes", "Saint-Etienne", "Strasbourg",
+    "Toulon", "Toulouse"
+)
+pop_1962 <- c(
+    115273, 278403, 136104, 135694, 156707, 187845, 132181, 239955,
+    535746, 778071, 118864, 240048, 292958, 2790091, 134856, 151948,
+    210311, 228971, 161797, 323724
+)
+pop_2012 <- c(
+    149017, 241287, 139676, 152071, 158346, 173142, 143599, 228652,
+    496343, 852516, 268456, 291604, 343629, 2240621, 181893, 209860,
+    171483, 274394, 164899, 453317
+)
+names(pop_2012) <- names(pop_1962) <- cities
+pop_diff <- pop_2012 - pop_1962
+```
+
+Print cities with a negative change
+
+```{r exo3-7, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+pop_diff
+```
+
+```{r exo3-7-solution, exercise.reveal_solution = TRUE}
+cities[pop_diff < 0]
+```
+
+```{r exo3-7-code-check}
+grade_code()
+```
+
+
+### 
+
+Print cities which broke the 300000 people barrier between 1962 and 2012
+
+```{r exo3-8, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+pop_2012 > 300000
+```
+
+```{r exo3-8-solution, exercise.reveal_solution = TRUE}
+cities[pop_2012 > 300000 & pop_1962 < 300000]
+```
+
+```{r exo3-8-code-check}
+grade_code()
+```
+
+### 
+
+Compute the total change in population of the 10 largest cities (as of 1962) between 1962 and 2012.
+
+```{r exo3-9, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+order(pop_1962)
+ten_largest <- cities[___]
+sum(___)
+```
+
+```{r exo3-9-solution, exercise.reveal_solution = TRUE}
+ten_largest <- cities[order(pop_1962, decreasing = TRUE)[1:10]]
+sum(pop_2012[ten_largest] - pop_1962[ten_largest])
+```
+
+```{r exo3-9-code-check}
+grade_code()
+```
+
+### 
+
+Compute the population mean for year 1962
+
+```{r exo3-10, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+
+```
+
+```{r exo3-10-solution, exercise.reveal_solution = TRUE}
+mean(pop_1962)
+```
+
+```{r exo3-10-code-check}
+grade_code()
+```
+
+
+### 
+
+Compute the population mean of Paris over these two years
+
+```{r exo3-11, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+mean(___)
+```
+
+```{r exo3-11-solution, exercise.reveal_solution = TRUE}
+mean(c(pop_1962['Paris'], pop_2012['Paris']))
+```
+
+```{r exo3-11-code-check}
+grade_code()
+```
+
+### 
+
+Sort the cities by decreasing order of population for 1962
+
+```{r exo3-12, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+
+```
+
+```{r exo3-12-solution, exercise.reveal_solution = TRUE}
+sort(pop_1962, decreasing = TRUE)
+```
+
+```{r exo3-12-code-check}
+grade_code()
 ```
