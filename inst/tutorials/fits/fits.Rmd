@@ -1,0 +1,20 @@
+---
+title: "Fits"
+subtitle:"[Reproducible data treatment with R](http://lmi.cnrs.fr/r/fitting.html)"
+author: Colin Bousige
+output: 
+    learnr::tutorial:
+        progressive: true
+        allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+# rmarkdown::run("fits.Rmd")
+library(learnr)
+library(tutoR)
+library(tidyverse)
+gradethis::gradethis_setup()
+```
+
+I still have to do this one...
