@@ -30,9 +30,6 @@ used in the exercises to learn about them:
 
 ``` r
 install.packages("tidyverse")
-install.packages("broom")
-install.packages("knitr")
-install.packages("shiny")
 install.packages("minpack.lm")
 ```
 

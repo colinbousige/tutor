@@ -30,9 +30,6 @@ It is also recommended to install the following packages, as they are used in th
 
 ```r
 install.packages("tidyverse")
-install.packages("broom")
-install.packages("knitr")
-install.packages("shiny")
 install.packages("minpack.lm")
 ```
 
