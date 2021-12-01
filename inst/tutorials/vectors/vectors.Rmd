@@ -1,7 +1,7 @@
 ---
 title: "Vectors"
 subtitle: "[Reproducible data treatment with R](http://lmi.cnrs.fr/r/vectors.html)"
-author: Colin Bousige
+author: "Colin Bousige"
 output: 
     learnr::tutorial:
         progressive: true

@@ -1,7 +1,7 @@
 ---
 title: "Data Frames"
 subtitle: "[Reproducible data treatment with R](http://lmi.cnrs.fr/r/data-frames.html)"
-author: Colin Bousige
+author: "Colin Bousige"
 output: 
     learnr::tutorial:
         progressive: true
