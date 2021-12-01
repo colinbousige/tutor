@@ -12,5 +12,9 @@ LazyData: true
 RoxygenNote: 7.1.2
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    tidyverse
+Remotes:
+    rstudio/gradethis
+    rstudio/learnr
 VignetteBuilder: knitr

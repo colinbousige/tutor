@@ -15,7 +15,8 @@ them yet:
 
 ``` r
 install.packages("devtools")
-install.packages("learnr")
+remotes::install_github("rstudio/gradethis", force = TRUE)
+remotes::install_github("rstudio/learnr", force = TRUE)
 ```
 
 Then run the following to install the `tutoR` package:
@@ -42,6 +43,7 @@ install.packages("minpack.lm")
 After having installed the package, launch a tutorial by running:
 
 ``` r
+library(tutoR)
 learnr::run_tutorial("tutorial_name", package = "tutoR")
 ```
 

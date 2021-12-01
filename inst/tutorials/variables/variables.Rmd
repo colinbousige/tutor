@@ -1,13 +1,14 @@
 ---
 title: "Variables"
-subtitle: "[Reproducible data treatment with R](http://lmi.cnrs.fr/r/variables-booleans-and-strings.html)"
+subtitle: "Reproducible data treatment with R"
 author: Colin Bousige
-output: 
+output:
     learnr::tutorial:
         progressive: true
         allow_skip: true
 runtime: shiny_prerendered
 ---
+
 
 ```{r setup, include=FALSE}
 # rmarkdown::run("variables.Rmd")
