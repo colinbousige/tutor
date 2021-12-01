@@ -1,6 +1,7 @@
 .Rhistory
 .Rapp.history
 .RData
+*/.DS_Store
 *-Ex.R
 /*.tar.gz
 /*.Rcheck/
