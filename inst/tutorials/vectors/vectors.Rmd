@@ -191,8 +191,111 @@ Without typing it into Rstudio, what will be the output for the R expression `ma
 
 ```
 
+## Exercice 2
 
-## Exercise 2
+
+We have the following `x` vector: `x <- c("10K", "100K", "200K", "500K", "1000K")`. Get rid of the  `"K"` character and turn this into a numerical vector.
+
+```{r q10-setup, include=FALSE}
+x <- c("10K", "100K", "200K", "500K", "1000K")
+```
+
+
+```{r q10, exercise=TRUE, exercise.blanks = "___+"}
+x
+```
+
+```{r q10-hint}
+# Use gsub() and as.numeric()
+```
+
+```{r q10-solution, exercise.reveal_solution = FALSE}
+x <- as.numeric(gsub("K", "", x))
+```
+
+```{r q10-code-check}
+grade_code()
+```
+
+
+## Exercice 3
+
+We have the following `times` vector: `times <- c("010_min", "100_sec", "200_sec", "050_min")`. We want a numerical vector containing times in seconds only.
+
+###
+
+Using `substr()`, create 2 vectors `times_values` and `times_units` containing the numbers and the units from `times`.
+
+```{r exo3-1-setup, include=FALSE}
+times <- c("010_min", "100_sec", "200_sec", "050_min")
+```
+
+
+```{r exo3-1, exercise=TRUE, exercise.blanks = "___+"}
+times_values <- substr(string, start, stop)
+times_units  <- ___
+```
+
+```{r exo3-1-solution, exercise.reveal_solution = FALSE}
+times_values <- as.numeric(substr(times, 1, 3))
+times_units  <- substr(times, 5, 7)
+```
+
+```{r exo3-1-code-check}
+grade_code()
+```
+
+
+###
+
+You could do the same using `strsplit()` and `unlist()`
+
+```{r exo3-2-setup, include=FALSE}
+times <- c("010_min", "100_sec", "200_sec", "050_min")
+```
+
+
+```{r exo3-2, exercise=TRUE, exercise.blanks = "___+"}
+strsplit("test", "e")
+unlist(strsplit("test", "e"))
+```
+
+```{r exo3-2-solution, exercise.reveal_solution = FALSE}
+times_values <- as.numeric(unlist(strsplit(times, "_"))[1:8 %% 2 == TRUE])
+times_units  <- unlist(strsplit(times, "_"))[1:8%%2==FALSE]
+```
+
+```{r exo3-2-code-check}
+grade_code()
+```
+
+
+###
+
+Now, using `ifelse(test, yes, no)`, create the `times_sec` vector containing the numerical values of time all converted to seconds.
+
+```{r exo3-3-setup, include=FALSE}
+times <- c("010_min", "100_sec", "200_sec", "050_min")
+times_values <- as.numeric(unlist(strsplit(times, "_"))[1:8 %% 2 == TRUE])
+times_units <- unlist(strsplit(times, "_"))[1:8 %% 2 == FALSE]
+```
+
+
+```{r exo3-3, exercise=TRUE, exercise.blanks = "___+"}
+times_sec <- ifelse(test, yes, no)
+```
+
+```{r exo3-3-solution, exercise.reveal_solution = TRUE}
+times_sec <- ifelse(times_units == "min", times_values*60, times_values)
+times_sec
+```
+
+```{r exo3-3-code-check}
+grade_code()
+```
+
+
+## Exercise 4
 
 Let's create a named vector containing age of the students in the class, the names of each value being the first name of the students. 
 
@@ -216,10 +319,10 @@ Then (do it in Rstudio this time):
 - Show a boxplot of the ages distribution using `boxplot()`{.R}
 
 
-## Exercise 3
+## Exercise 5
 
 Let's say we have this population data for these French cities for the two years 1962 and 2012:
-```{r exo3-setup, echo=FALSE}
+```{r exo5-setup, echo=FALSE}
 cities <- c(
     "Angers", "Bordeaux", "Brest", "Dijon", "Grenoble", "Le Havre",
     "Le Mans", "Lille", "Lyon", "Marseille", "Montpellier", "Nantes",
@@ -247,11 +350,11 @@ knitr::kable(df[,11:ncol(df)])
 
 Create a `cities` vector containing all the cities listed above:
 
-```{r exo3-1, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup"}
+```{r exo5-1, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup"}
 cities <- c(___)
 ```
 
-```{r exo3-1-solution, exercise.reveal_solution = FALSE}
+```{r exo5-1-solution, exercise.reveal_solution = FALSE}
 cities <- c(
     "Angers", "Bordeaux", "Brest", "Dijon", "Grenoble", "Le Havre",
     "Le Mans", "Lille", "Lyon", "Marseille", "Montpellier", "Nantes",
@@ -260,7 +363,7 @@ cities <- c(
 )
 ```
 
-```{r exo3-1-code-check}
+```{r exo5-1-code-check}
 grade_code()
 ```
 
@@ -268,12 +371,12 @@ grade_code()
 
 Create a `pop_1962` and `pop_2012` vectors containing the populations of each city at these years. Print the 2 vectors. 
 
-```{r exo3-2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup"}
+```{r exo5-2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup"}
 pop_1962 <- c(___)
 pop_2012 <- c(___)
 ```
 
-```{r exo3-2-solution, exercise.reveal_solution = FALSE}
+```{r exo5-2-solution, exercise.reveal_solution = FALSE}
 pop_1962 <- c(
     115273, 278403, 136104, 135694, 156707, 187845, 132181, 239955,
     535746, 778071, 118864, 240048, 292958, 2790091, 134856, 151948,
@@ -286,7 +389,7 @@ pop_2012 <- c(
 )
 ```
 
-```{r exo3-2-code-check}
+```{r exo5-2-code-check}
 grade_code()
 ```
 
@@ -294,24 +397,24 @@ grade_code()
 
 Use `names()`{.R} to name values of `pop_1962` and `pop_2012`. Print the 2 vectors again. Are there any change?
 
-```{r exo3-3, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup"}
+```{r exo5-3, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup"}
 names(pop_1962) <- ___
 names(pop_2012) <- ___
 ```
 
 
-```{r exo3-3-solution, exercise.reveal_solution = FALSE}
+```{r exo5-3-solution, exercise.reveal_solution = FALSE}
 names(pop_1962) <- cities
 names(pop_2012) <- cities
 pop_1962
 pop_2012
 ```
 
-```{r exo3-3-code-check}
+```{r exo5-3-code-check}
 grade_code()
 ```
 
-```{r exo3-setup2}
+```{r exo5-setup2}
 cities <- c(
     "Angers", "Bordeaux", "Brest", "Dijon", "Grenoble", "Le Havre",
     "Le Mans", "Lille", "Lyon", "Marseille", "Montpellier", "Nantes",
@@ -335,17 +438,17 @@ names(pop_2012) <- names(pop_1962) <- cities
 
 What are the cities with more than 200000 people in 1962? For these, how many residents in 2012?
 
-```{r exo3-4, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup2"}
+```{r exo5-4, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup2"}
 pop_1962 > 200000
 ```
 
-```{r exo3-4-solution, exercise.reveal_solution = TRUE}
+```{r exo5-4-solution, exercise.reveal_solution = TRUE}
 cities200k <- cities[pop_1962 > 200000]
 cities200k
 pop_2012[cities200k]
 ```
 
-```{r exo3-4-code-check}
+```{r exo5-4-code-check}
 grade_code()
 ```
 
@@ -354,16 +457,16 @@ grade_code()
 
 What is the population evolution of Montpellier and Nantes?
 
-```{r exo3-5, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup2"}
+```{r exo5-5, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup2"}
 pop_2012 - pop_1962
 ```
 
-```{r exo3-5-solution, exercise.reveal_solution = TRUE}
+```{r exo5-5-solution, exercise.reveal_solution = TRUE}
 pop_2012["Montpellier"] - pop_1962["Montpellier"]
 pop_2012["Nantes"] - pop_1962["Nantes"]
 ```
 
-```{r exo3-5-code-check}
+```{r exo5-5-code-check}
 grade_code()
 ```
 
@@ -371,21 +474,21 @@ grade_code()
 
 Create a `pop_diff` vector to store population change between 1962 and 2012
 
-```{r exo3-6, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup2"}
+```{r exo5-6, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup2"}
 pop_diff <- ___
 ```
 
-```{r exo3-6-solution, exercise.reveal_solution = TRUE}
+```{r exo5-6-solution, exercise.reveal_solution = TRUE}
 pop_diff <- pop_2012 - pop_1962
 ```
 
-```{r exo3-6-code-check}
+```{r exo5-6-code-check}
 grade_code()
 ```
 
 ### 
 
-```{r exo3-setup3}
+```{r exo5-setup3}
 cities <- c(
     "Angers", "Bordeaux", "Brest", "Dijon", "Grenoble", "Le Havre",
     "Le Mans", "Lille", "Lyon", "Marseille", "Montpellier", "Nantes",
@@ -408,15 +511,15 @@ pop_diff <- pop_2012 - pop_1962
 
 Print cities with a negative change
 
-```{r exo3-7, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+```{r exo5-7, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup3"}
 pop_diff
 ```
 
-```{r exo3-7-solution, exercise.reveal_solution = TRUE}
+```{r exo5-7-solution, exercise.reveal_solution = TRUE}
 cities[pop_diff < 0]
 ```
 
-```{r exo3-7-code-check}
+```{r exo5-7-code-check}
 grade_code()
 ```
 
@@ -425,15 +528,15 @@ grade_code()
 
 Print cities which broke the 300000 people barrier between 1962 and 2012
 
-```{r exo3-8, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+```{r exo5-8, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup3"}
 pop_2012 > 300000
 ```
 
-```{r exo3-8-solution, exercise.reveal_solution = TRUE}
+```{r exo5-8-solution, exercise.reveal_solution = TRUE}
 cities[pop_2012 > 300000 & pop_1962 < 300000]
 ```
 
-```{r exo3-8-code-check}
+```{r exo5-8-code-check}
 grade_code()
 ```
 
@@ -441,18 +544,18 @@ grade_code()
 
 Compute the total change in population of the 10 largest cities (as of 1962) between 1962 and 2012.
 
-```{r exo3-9, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+```{r exo5-9, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup3"}
 order(pop_1962)
 ten_largest <- cities[___]
 sum(___)
 ```
 
-```{r exo3-9-solution, exercise.reveal_solution = TRUE}
+```{r exo5-9-solution, exercise.reveal_solution = TRUE}
 ten_largest <- cities[order(pop_1962, decreasing = TRUE)[1:10]]
 sum(pop_2012[ten_largest] - pop_1962[ten_largest])
 ```
 
-```{r exo3-9-code-check}
+```{r exo5-9-code-check}
 grade_code()
 ```
 
@@ -460,15 +563,15 @@ grade_code()
 
 Compute the population mean for year 1962
 
-```{r exo3-10, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+```{r exo5-10, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup3"}
 
 ```
 
-```{r exo3-10-solution, exercise.reveal_solution = TRUE}
+```{r exo5-10-solution, exercise.reveal_solution = TRUE}
 mean(pop_1962)
 ```
 
-```{r exo3-10-code-check}
+```{r exo5-10-code-check}
 grade_code()
 ```
 
@@ -477,15 +580,15 @@ grade_code()
 
 Compute the population mean of Paris over these two years
 
-```{r exo3-11, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+```{r exo5-11, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup3"}
 mean(___)
 ```
 
-```{r exo3-11-solution, exercise.reveal_solution = TRUE}
+```{r exo5-11-solution, exercise.reveal_solution = TRUE}
 mean(c(pop_1962['Paris'], pop_2012['Paris']))
 ```
 
-```{r exo3-11-code-check}
+```{r exo5-11-code-check}
 grade_code()
 ```
 
@@ -493,14 +596,14 @@ grade_code()
 
 Sort the cities by decreasing order of population for 1962
 
-```{r exo3-12, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo3-setup3"}
+```{r exo5-12, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup3"}
 
 ```
 
-```{r exo3-12-solution, exercise.reveal_solution = TRUE}
+```{r exo5-12-solution, exercise.reveal_solution = TRUE}
 sort(pop_1962, decreasing = TRUE)
 ```
 
-```{r exo3-12-code-check}
+```{r exo5-12-code-check}
 grade_code()
 ```
