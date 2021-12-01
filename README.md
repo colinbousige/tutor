@@ -44,7 +44,8 @@ After having installed the package, launch a tutorial by running:
 
 ``` r
 library(tutoR)
-learnr::run_tutorial("tutorial_name", package = "tutoR")
+tuto() # prints the list of available tutorials
+tuto("tutorial_name")
 ```
 
 In this call, `"tutorial_name"` can be any of:
