@@ -42,6 +42,7 @@ install.packages("minpack.lm")
 After having installed the package, launch a tutorial by running:
 
 ```r
+library(tutoR)
 learnr::run_tutorial("tutorial_name", package = "tutoR")
 ```
 
