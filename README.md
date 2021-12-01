@@ -15,8 +15,8 @@ them yet:
 
 ``` r
 install.packages("devtools")
-remotes::install_github("rstudio/gradethis", force = TRUE)
-remotes::install_github("rstudio/learnr", force = TRUE)
+devtools::install_github("rstudio/gradethis", force = TRUE)
+devtools::install_github("rstudio/learnr", force = TRUE)
 ```
 
 Then run the following to install the `tutoR` package:
