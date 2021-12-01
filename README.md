@@ -77,4 +77,4 @@ List of functions included in the package:
 -   [`Pruby()`](R/Pruby.R)
 -   [`Rshift_to_lambda()`](R/Rshift_to_lambda.R)
 -   [`sinc()`](R/sinc.R)
--   [`tutoR_example()`](R/tutoR_example.R)
+-   [`tutoR_examples()`](R/tutoR_example.R)

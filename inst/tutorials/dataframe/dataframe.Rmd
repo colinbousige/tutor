@@ -1,6 +1,6 @@
 ---
-title: "Variables"
-subtitle: "[Reproducible data treatment with R](http://lmi.cnrs.fr/r/variables-booleans-and-strings.html)"
+title: "Data Frames"
+subtitle: "[Reproducible data treatment with R](http://lmi.cnrs.fr/r/data-frames.html)"
 author: Colin Bousige
 output: 
     learnr::tutorial:
@@ -10,222 +10,645 @@ runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
-# rmarkdown::run("variables.Rmd")
+# rmarkdown::run("dataframe.Rmd")
 library(learnr)
+library(tutoR)
+library(tidyverse)
 gradethis::gradethis_setup()
 ```
 
-## Variables
+## Exercise 1
 
+###
 
-This code computes the answer to one plus one, change it so it computes two plus two:
+Create a 3 column `data.frame`{.R} called `df` containing three columns `x`, `y` and `z` with:
 
-```{r addition, exercise=TRUE}
-1 + 1
-```
+- `x` a vector from $-\pi$ to $\pi$ of length 10
+- `y` their sinus
+- and `z` the sum of the two first columns.
 
----
-
-Attribute to `x` the value `2.5`, and compute the exponential of its squared value:
-
-```{r qblank, exercise=TRUE, exercise.blanks = "___"}
-x <- ___
-```
-
-
-```{r qblank-solution, exercise.reveal_solution = FALSE}
-x <- 2.5
-exp(x^2)
-```
-
-```{r qblank-code-check}
-grade_code()
-```
-
----
-
-Attribute the string `"100.3"` to the variable `x`, and the value 99.6 to the variable `y`:
-```{r q0, exercise=TRUE, exercise.blanks = "___"}
+```{r q0, exercise=TRUE, exercise.blanks = "___+"}
 x <- ___
 y <- ___
+z <- ___
+df <- data.frame()
 ```
 
 ```{r q0-solution, exercise.reveal_solution = FALSE}
-x <- "100.3"
-y <- 99.6
+x <- seq(-pi, pi, length=10)
+y <- sin(x)
+z <- x + y
+df <- data.frame(x=x, y=y, z=z)
 ```
 
 ```{r q0-code-check}
 grade_code()
 ```
+###
 
-----
+Print the 4 first lines of the table
 
-Assuming the `x` and `y` defined above, modify the following code so that it does not return an error:
+```{r q1, exercise=TRUE, exercise.blanks = "___+", exercise.setup="q0-solution"}
 
-```{r q1-setup, include=FALSE}
-x <- "100.3"
-y <- 99.6
-```
-
-```{r q1, exercise=TRUE}
-floor(x) - ceiling(y)
 ```
 
 ```{r q1-hint}
-# look into 
-as.numeric()
+# Take a look at the head() function
 ```
 
 ```{r q1-solution, exercise.reveal_solution = FALSE}
-floor(as.numeric(x)) - ceiling(y)
+head(df, 4)
 ```
 
 ```{r q1-code-check}
 grade_code()
 ```
 
+###
 
-## Booleans
+Print the second (*i.e.* `y`) column with three different ways
 
-I defined two random variables `x` and `y`. Are the two variables equal?
-
-```{r qtest-setup, include=FALSE}
-x <- runif(1)
-y <- runif(1)
+```{r q2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="q0-solution"}
+df[___]
+df[___]
+df$___
 ```
 
-```{r qtest, exercise=TRUE, exercise.blanks = "___"}
-
+```{r q2-solution, exercise.reveal_solution = FALSE}
+df[,2]
+df[,"y"]
+df$y
 ```
 
-```{r qtest-solution, exercise.reveal_solution = FALSE}
-x == y
-```
-
-```{r qtest-code-check}
+```{r q2-code-check}
 grade_code()
 ```
 
----
+###
 
-I defined two random variables `x` and `y`. Using the `ifelse()`{.R} function, print "x is larger than y" or "x is smaller than y".
+Print the average of the third column
 
-```{r qtest2-setup, include=FALSE}
-x <- runif(1)
-y <- runif(1)
+```{r q3, exercise=TRUE, exercise.blanks = "___+", exercise.setup="q0-solution"}
+
 ```
 
-```{r qtest2, exercise=TRUE, exercise.blanks = "___"}
-ifelse(test, yes, no)
+
+```{r q3-hint}
+# look at th mean() function
 ```
 
-```{r qtest2-solution, exercise.reveal_solution = FALSE}
-ifelse(x < y, "x is smaller than y", "x is larger than y")
+```{r q3-solution, exercise.reveal_solution = FALSE}
+mean(df$z)
 ```
 
-```{r qtest2-code-check}
+```{r q3-code-check}
 grade_code()
 ```
 
+###
 
---- 
+Using `plot(x,y)`{.R} where `x` and `y` are vectors, plot the 2nd column as a function of the first
 
-Without running the code, what do you think will be the output of this code:
-```{r q2, exercise=TRUE}
-cos(pi/2)==cos(3*pi/2)
-```
 
-```{r q3, exercise=TRUE}
-cos(pi/2)-cos(3*pi/2)
-```
-
-In fact, `.Machine$double.eps` is the smallest positive floating-point number x such that `1 + x != 1`. It depends on the machine (computer) you are running on:
-```{r machine, exercise=TRUE}
-.Machine$double.eps
-(cos(pi / 2) - cos(3 * pi / 2)) > .Machine$double.eps
-all.equal(cos(pi/2),cos(3*pi/2))
+```{r q4, exercise=TRUE, exercise.blanks = "___+", exercise.setup="q0-solution"}
+plot(___, ___)
 ```
 
 
-## Strings
-
-Save your name as a string in a variable, and print "My name is: yourname" using this variable.
-
-```{r qstring1, exercise=TRUE, exercise.blanks = "___"}
-name <- ___
+```{r q4-solution, exercise.reveal_solution = FALSE}
+plot(df$x, df$y)
 ```
 
-```{r qstring1-hint}
-name <- "___"
-```
-
-```{r qstring1-solution, exercise.reveal_solution = FALSE}
-name <- "Colin"
-paste("My name is:", name)
-```
-
-```{r qstring1-code-check}
+```{r q4-code-check}
 grade_code()
 ```
 
-----
+###
 
-Replace all "e" by "A" in the following string:
+Look into the function `write.table()`{.R} to write a text file containing this `data.frame`{.R}
 
-```{r qstring2, exercise=TRUE, exercise.blanks = "___"}
-x <- "aaaeebbbeebiieelakdceee"
-gsub(___, ___, ___)
+```{r q5, exercise=TRUE, exercise.blanks = "___+", exercise.setup="q0-solution"}
+write.table(___)
 ```
 
-```{r qstring2-solution, exercise.reveal_solution = FALSE}
-x <- "aaaeebbbeebiieelakdceee"
-gsub("e", "A", x)
+
+```{r q5-solution, exercise.reveal_solution = FALSE}
+write.table(df, "~/Downloads/some_data.dat", quote = FALSE, row.names = FALSE)
 ```
 
-```{r qstring2-code-check}
-grade_code()
-```
-
----
-
-Do the same using the `stringr` function `str_replace_all()`{.R} (take a look at the [cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/strings.pdf)):
-
-```{r qstringr, exercise=TRUE, exercise.blanks = "___"}
-library(stringr)
-x <- "aaaeebbbeebiieelakdceee"
-str_replace_all(___, ___, ___)
-```
-
-```{r qstringr-solution, exercise.reveal_solution = FALSE}
-library(stringr)
-x <- "aaaeebbbeebiieelakdceee"
-str_replace_all(x, "e", "A")
-```
-
-```{r qstringr-code-check}
+```{r q5-code-check}
 grade_code()
 ```
 
 
----
+###
 
-Find the index of all the `"e"` characters in the string, using base functions and `stringr` ones:
+Do the all the same things with a `tibble`{.R}
 
-```{r qstringr2, exercise=TRUE, exercise.blanks = "___"}
-x <- "aaaeebbbeebiieelakdceee"
-gregexpr(___, ___)
-library(stringr)
-str_____(___, ___)
+```{r q6, exercise=TRUE, exercise.blanks = "___+"}
+df_tib <- tibble(___)
 ```
 
-```{r qstringr2-solution, exercise.reveal_solution = FALSE}
-x <- "aaaeebbbeebiieelakdceee"
-gregexpr("e", x)
-library(stringr)
-str_locate_all(x, "e")
+```{r q6-solution, exercise.reveal_solution = TRUE}
+library(tidyverse)
+df_tib <- tibble(x = seq(-pi, pi, length = 10), 
+                 y = sin(x), 
+                 z = x + y)
+head(df_tib, 4)
+df_tib[, 2]
+df_tib[[2]]
+mean(df_tib$z)
+write_csv(df_tib, "~/Downloads/some_data.csv")
+plot(df_tib$x, df_tib$y)
 ```
 
-```{r qstringr2-code-check}
+```{r q6-code-check}
+grade_code()
+```
+
+
+## Exercise 2
+
+We will work with 3 different files:
+    - `tutoR_examples("rubis_01.txt")`
+    - `tutoR_examples("population.csv")`
+    - `tutoR_examples("FTIR_rocks.xlsx")`
+
+
+###
+
+Load them into separate `data.frames`{.R}. Look into the options of `read.table()`{.R}, `read.csv()`{.R}, `readxl::read_excel()`{.R}, to get the proper data fields. Make sure that the `rubis_01` data.frame has `w` and `intensit` as column names.
+
+```{r exo2-1, exercise=TRUE, exercise.blanks = "___+"}
+rubis_01   <- ___(tutoR_examples("rubis_01.txt"), ___)
+population <- ___(tutoR_examples("population.csv"))
+FTIR_rocks <- ___(tutoR_examples("FTIR_rocks.xlsx"))
+```
+
+```{r exo2-1-solution, exercise.reveal_solution = FALSE}
+rubis_01   <- read.table(tutoR_examples("rubis_01.txt"), col.names = c("w", "intensity"))
+population <- read.csv(tutoR_examples("population.csv"))
+FTIR_rocks <- readxl::read_excel(tutoR_examples("FTIR_rocks.xlsx"))
+```
+
+```{r exo2-1-code-check}
+grade_code()
+```
+
+
+### 
+
+Print their dimensions and column names. 
+
+```{r exo2-2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo2-1-solution"}
+# Dimensions
+rubis_01
+population
+FTIR_rocks
+# Names
+rubis_01
+population
+FTIR_rocks
+```
+
+```{r exo2-2-solution, exercise.reveal_solution = FALSE}
+dim(rubis_01);   names(rubis_01)
+dim(population); names(population)
+dim(FTIR_rocks); names(FTIR_rocks)
+```
+
+```{r exo2-2-code-check}
+grade_code()
+```
+
+###
+
+Do the same things by loading directly into tibbles.
+
+```{r exo2-3, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo2-1-solution"}
+
+```
+
+```{r exo2-3-solution, exercise.reveal_solution = FALSE}
+library(tidyverse)
+rubis_01 <- read_table(tutoR_examples("rubis_01.txt"), col_names = c("w", "intensity"))
+population <- read_csv(tutoR_examples("population.csv"))
+```
+
+```{r exo2-3-code-check}
+grade_code()
+```
+
+
+## Exercise 3
+
+We will use the TGA data file `tutoR_examples("ATG.txt")` ([click link](https://github.com/colinbousige/tutoR/blob/master/inst/extdata/ATG.txt) to take a look at the file).
+
+Load it into a `data.frame`{.R}. Look into the options of [`read.table()`{.R}](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/read.table) to get the proper data fields.
+
+```{r exo3-1, exercise=TRUE, exercise.blanks = "___+"}
+d <- read.table(tutoR_examples("ATG.txt"),
+                ___
+                )
+d
+```
+
+```{r exo3-1-hint}
+# check how many lines you have to read
+# check how many lines you have to skip before reading
+# you need to skip the line with the unit
+```
+
+```{r exo3-1-solution, exercise.reveal_solution = TRUE}
+# Two versions
+d <- read.table(tutoR_examples("ATG.txt"),
+    skip = 12,
+    header = FALSE,
+    nrows = 4088
+)
+names(d) <- c("Index", "t", "Ts", "Tr", "Value")
+head(d)
+d <- read.table(tutoR_examples("ATG.txt"),
+    skip = 10,
+    comment.char = "[",
+    header = TRUE,
+    nrows = 4088
+)
+head(d)
+```
+
+###
+
+Do the same using the `tidyverse` function [`read_table()`](https://www.rdocumentation.org/packages/readr/versions/1.3.1/topics/read_table):
+
+```{r exo3-2, exercise=TRUE, exercise.blanks = "___+"}
+library(tidyverse)
+d <- read_table(tutoR_examples("ATG.txt"),
+                ___
+                )
+d
+```
+
+```{r exo3-2-solution, exercise.reveal_solution = TRUE}
+library(tidyverse)
+d <- read_table(tutoR_examples("ATG.txt"), 
+                skip    = 10,
+                comment = "[") %>% 
+        drop_na()
+d
+```
+
+
+## Exercise 4
+
+### 
+
+Load the `tutoR_examples("population.csv")` file into a `tibble`{.R} called `popul`.
+
+```{r exo4-1, exercise=TRUE, exercise.blanks = "___+"}
+library(___)
+popul <- read____(tutoR_examples("population.csv"))
+```
+
+```{r exo4-1-solution, exercise.reveal_solution = FALSE}
+library(tidyverse)
+popul <- read_csv(tutoR_examples("population.csv"))
+```
+
+```{r exo4-1-code-check}
+grade_code()
+```
+
+###
+
+What are the names of the columns? What's the dimension of the table ?
+
+```{r exo4-2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-1-solution"}
+popul
+```
+
+```{r exo4-2-solution, exercise.reveal_solution = FALSE}
+names(popul); dim(popul)
+```
+
+```{r exo4-2-code-check}
+grade_code()
+```
+
+###
+
+Are the data tidy? make the table tidy if needed
+
+```{r exo4-3, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-1-solution"}
+popul
+popul.tidy <- popul %>% 
+    pivot_longer(
+        cols     = ___, # what are the columns we want to keep? -> -these
+        names_to = ___, # name of the column gathering the original column names
+        values_to= ___  # name of the column gathering the original column values
+        )
+```
+
+```{r exo4-3-solution, exercise.reveal_solution = TRUE}
+head(popul) # no
+popul.tidy <- popul %>% 
+    pivot_longer(cols      = -year,
+                 names_to  = "city",
+                 values_to = "pop"
+                )
+popul.tidy
+```
+
+```{r exo4-3-code-check}
+grade_code()
+```
+
+
+###
+
+Create a subset containing the data for Montpellier using a [filtering](https://dplyr.tidyverse.org/reference/filter.html) function from the `tidyverse`.
+
+```{r exo4-4, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-3-solution"}
+mtp <- popul.tidy %>% ___
+```
+
+```{r exo4-4-solution, exercise.reveal_solution = FALSE}
+mtp <- popul.tidy %>% filter(city == "Montpellier")
+```
+
+```{r exo4-4-code-check}
+grade_code()
+```
+
+- What is the max and min of population in this city?
+- The average population over time?
+
+```{r exo4-5, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-4-solution"}
+mtp
+```
+
+```{r exo4-5-solution, exercise.reveal_solution = FALSE}
+max(mtp$pop)
+min(mtp$pop)
+range(mtp$pop)
+mean(mtp$pop)
+```
+
+```{r exo4-5-code-check}
+grade_code()
+```
+
+###
+
+What is the total population in 2012?
+
+```{r exo4-6, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-4-solution"}
+popul.tidy %>% 
+    ___ %>%         # You need to filter the data for the year 2012
+    ___ %>%         # Then select the right column
+    ___             # And perform the sum of its data
+```
+
+```{r exo4-6-solution, exercise.reveal_solution = TRUE}
+sum(popul.tidy[popul.tidy$year == 2012, "pop"])
+popul.tidy %>%
+    filter(year == 2012) %>%
+    select(pop) %>%
+    sum()
+```
+
+```{r exo4-6-code-check}
+grade_code()
+```
+
+###
+
+What is the total population per year?
+
+```{r exo4-7, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-4-solution"}
+popul.tidy %>% 
+    ___ %>%    # You need to group data per year
+    ___        # Then summarize the data of each year as 
+               # the total population of each group
+```
+
+```{r exo4-7-solution, exercise.reveal_solution = FALSE}
+popul.tidy %>% 
+    group_by(year) %>% 
+    summarise(pop_tot = sum(pop))
+```
+
+```{r exo4-7-code-check}
+grade_code()
+```
+
+###
+
+What is the average population per city over the years?
+
+```{r exo4-8, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-4-solution"}
+popul.tidy %>%
+    ___ %>%  # You need to group data per...?
+    ___      # Then...?
+```
+
+```{r exo4-8-solution, exercise.reveal_solution = FALSE}
+popul.tidy %>%
+    group_by(city) %>%
+    summarise(pop_ave = mean(pop))
+```
+
+```{r exo4-8-code-check}
+grade_code()
+```
+
+
+## Exercise 5
+
+First, load the `tidyverse` and `lubridate` package
+
+```{r exo5-1, exercise=TRUE, exercise.blanks = "___+"}
+___
+___
+```
+
+
+```{r exo5-1-solution, exercise.reveal_solution = FALSE}
+library(tidyverse)
+library(lubridate)
+```
+
+```{r exo5-1-code-check}
+grade_code()
+```
+
+###
+
+Load `tutoR_examples("people1.csv")` and `tutoR_examples("people2.csv")` into `pp1` and `pp2`, and take a look at them.
+
+```{r exo5-2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-1-solution"}
+pp1 <- ___
+pp2 <- ___
+```
+
+```{r exo5-2-solution, exercise.reveal_solution = FALSE}
+pp1 <- read_csv(tutoR_examples("people1.csv"))
+pp2 <- read_csv(tutoR_examples("people2.csv"))
+```
+
+```{r exo5-2-code-check}
+grade_code()
+```
+
+
+### 
+
+Create a new tibble `pp` by using the pipe operator (`%>%`{.R}) and successively:
+
+- joining the two tibbles into one using `inner_join()`{.R}
+- adding a column `age` containing the age in years (use `lubridate::time_length(x, 'years')`{.R} with x a time difference in days) by using `mutate()`{.R}
+
+```{r exo5-3, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-2-solution"}
+pp <- pp1 %>%
+    ___ %>%       # you need to join with pp2
+    mutate(___)   # then add a column `age` computing the right thing
+```
+
+```{r exo5-3-solution, exercise.reveal_solution = TRUE}
+pp <- pp1 %>%
+    inner_join(pp2) %>%
+    mutate(age = time_length(today() - dateofbirth, "years"))
+```
+
+```{r exo5-3-code-check}
+grade_code()
+```
+
+###
+
+Display a summary of the table using `str()`{.R}
+
+```{r exo5-4, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-3-solution"}
+
+```
+
+```{r exo5-4-solution, exercise.reveal_solution = FALSE}
+str(pp)
+```
+
+```{r exo5-4-code-check}
+grade_code()
+```
+
+### 
+
+Using `groupe_by()`{.R} and `summarize()`{.R}:
+
+- Show the number of males and females in the table (use the counter `n()`{.R})
+- Show the average age per gender
+- Show the average size per gender and institution
+- Show the number of people from each country, sorted by descending population (`arrange()`{.R})
+
+```{r exo5-5, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-4-solution", exercise.lines	= 20}
+# - Show the number of males and females in the table (use the counter `n()`{.R})
+pp %>%
+    ___ %>%
+    ___
+# - Show the average age per gender
+pp %>%
+    ___ %>%
+    ___
+# - Show the average size per gender and institution
+pp %>%
+    ___ %>%
+    ___
+# - Show the number of people from each country, sorted by descending population
+pp %>%
+    ___ %>%
+    ___ %>%
+    ___
+```
+
+```{r exo5-5-solution, exercise.reveal_solution = TRUE}
+# - Show the number of males and females in the table (use the counter `n()`{.R})
+pp %>%
+    group_by(gender) %>%
+    summarize(count = n())
+# - Show the average age per gender
+pp %>%
+    group_by(gender) %>%
+    summarize(age = mean(age))
+# - Show the average size per gender and institution
+pp %>%
+    group_by(gender, institution) %>%
+    summarize(size = mean(size))
+# - Show the number of people from each country, sorted by descending population
+pp %>%
+    group_by(origin) %>%
+    summarize(count = n()) %>%
+    arrange(desc(count))
+```
+
+```{r exo5-5-code-check}
+grade_code()
+```
+
+###
+
+Using `select()`{.R}, display:
+
+- only the name and age columns
+- all but the name column
+
+```{r exo5-6, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-5-solution"}
+# - only the name and age columns
+pp ___
+# - all but the name column
+pp ___
+```
+
+```{r exo5-6-solution, exercise.reveal_solution = FALSE}
+# - only the name and age columns
+pp %>% select(c(name, age))
+# - all but the name column
+pp %>% select(-name)
+```
+
+```{r exo5-6-code-check}
+grade_code()
+```
+
+### 
+
+Using `filter()`{.R}, show data only for:
+
+- Chinese people
+- From institution ECL and UCBL
+- People older than 22 
+- People with a `e` in their name
+
+```{r exo5-7, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-6-solution"}
+# - Chinese people
+pp ___
+# - From institution ECL and UCBL
+pp ___
+# - People older than 22
+pp ___
+# - People with a `e` in their name
+pp ___
+```
+
+```{r exo5-7-solution, exercise.reveal_solution = TRUE}
+# - Chinese people
+pp %>% filter(origin == "China")
+# - From institution ECL and UCBL
+pp %>% filter(institution %in% c("ECL", "UCBL"))
+# - People older than 22
+pp %>% filter(age > 22)
+# - People with a `e` in their name
+pp %>% filter(grepl("e", name))
+```
+
+```{r exo5-7-code-check}
 grade_code()
 ```
