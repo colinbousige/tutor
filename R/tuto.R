@@ -2,7 +2,7 @@
 #'
 #' Easy syntax to launch a tutorial.
 #'
-#' @param tuto Tutorial name. If NULL, prints the list of all available tutorials.
+#' @param tutoname Tutorial name. If NULL, prints the list of all available tutorials.
 #' @return
 #' @export
 tuto <- function(tutoname = NULL) {
