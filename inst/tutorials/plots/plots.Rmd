@@ -2,16 +2,269 @@
 title: "Plots"
 subtitle: "[Reproducible data treatment with R](http://lmi.cnrs.fr/r/plotting.html)"
 author: Colin Bousige
-output: learnr::tutorial
+output: 
+    learnr::tutorial:
+        progressive: true
+        allow_skip: true
 runtime: shiny_prerendered
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, message=FALSE}
+# rmarkdown::run("plots.Rmd")
 library(learnr)
+library(tidyverse)
+library(tutoR)
+library(patchwork)
+df <- read_table(tutoR_examples("exo_fit.txt"))
 ```
 
-This code computes the answer to one plus one, change it so it computes two plus two:
+## Exercise 1
 
-```{r addition, exercise=TRUE}
-1 + 1
+We will work with the well known table `mtcars` included in R:
+
+```{r}
+str(mtcars)
+```
+
+### Basic stuff 1
+
+Modify the following code to add a color depending on the `gear` column:
+```{r q, exercise=TRUE, exercise.blanks = "___+"}
+mtcars %>% # we work on the mtcars dataset, send it to ggplot
+    ggplot(aes(x = wt, y = mpg))+ # define the x and y variables of the plot, and also the color
+        geom_point() # plot with points
+```
+
+```{r q-solution, exercise.reveal_solution = TRUE}
+mtcars %>%
+    ggplot(aes(x = wt, y = mpg, color=gear)) +
+    geom_point()
+```
+
+```{r q-code-check}
+grade_code()
+```
+
+### Basic stuff 2
+
+What happens if you use `factor(gear)` instead?
+```{r q1, exercise=TRUE, exercise.blanks = "___+"}
+mtcars %>% # we work on the mtcars dataset, send it to ggplot
+    ggplot(aes(x = wt, y = mpg, color = gear))+ # define the x and y variables of the plot, and also the color
+        geom_point() # plot with points
+```
+
+```{r q1-solution, exercise.reveal_solution = FALSE}
+mtcars %>%
+    ggplot(aes(x = wt, y = mpg, color = factor(gear))) +
+    geom_point()
+```
+
+```{r q1-code-check}
+grade_code()
+```
+
+
+### Faceting 1
+
+Modify the following code to place each `carb` in a different facet. Also add a color, but remove the legend.
+```{r q2, exercise=TRUE, exercise.blanks = "___+"}
+mtcars %>% # we work on the iris dataset, send it to ggplot
+    ggplot(aes(x = wt, y = mpg))+ # define the x and y variables of the plot, and also the color
+        geom_point() +   # plot with points
+        facet____(___) + # add a faceting
+        theme(___)       # remove the legend
+```
+
+```{r q2-solution, exercise.reveal_solution = FALSE}
+mtcars %>%
+    ggplot(aes(x = wt, y = mpg, color = factor(gear)))+
+    geom_point() +
+    facet_wrap(~carb)+
+    theme(legend.position = "none")
+```
+
+```{r q2-code-check}
+grade_code()
+```
+
+
+### Faceting 2
+
+Modify the following code to arrange `mpg` vs `wt` plots on a grid showing `gear` vs `carb`. Also add a color depending on `cyl`. Also, try adding a free `x` scale range, or a free `y` scale range, or free `x` and `y` scale ranges.
+```{r q3, exercise=TRUE, exercise.blanks = "___+"}
+mtcars %>% # we work on the iris dataset, send it to ggplot
+    ggplot(aes(x = ___, y = ___))+ # define the x and y variables of the plot, and also the color
+        geom_point() +   # plot with points
+        facet____(___) # add a faceting
+```
+
+```{r q3-solution, exercise.reveal_solution = TRUE}
+mtcars %>%
+    ggplot(aes(x = wt, y = mpg, color = factor(cyl)))+
+    geom_point() +
+    facet_grid(paste("gear = ", gear) ~ paste("carb = ", carb), scales = "free")
+```
+
+```{r q3-code-check}
+grade_code()
+```
+
+
+
+## Exercise 2
+
+We will look at data loaded into `df`. 
+
+```{r}
+df
+```
+
+###
+
+Using `ggplot`, plot `y` as a function of `x` with points and save it into `Py`:
+
+```{r exo1-0, exercise=TRUE, exercise.blanks = "___+"}
+Py <- df %>% 
+    ___
+Py
+```
+
+```{r exo1-0-solution, exercise.reveal_solution = TRUE}
+Py <- df %>% 
+    ggplot(aes(x = x, y = y)) + 
+    geom_point()
+Py
+```
+
+```{r exo1-0-code-check}
+grade_code()
+```
+
+
+###
+
+Add a straight line in `Py` resulting from a linear fit:
+
+```{r exo1-1, exercise=TRUE, exercise.blanks = "___+"}
+Py <- Py +
+    geom_smooth(___)
+Py
+```
+
+```{r exo1-1-solution, exercise.reveal_solution = TRUE, exercise.setup="exo1-0-solution"}
+Py <- Py +
+    geom_smooth(method = "lm")
+Py
+```
+
+```{r exo1-1-code-check}
+grade_code()
+```
+
+### 
+
+Using `ggplot`, plot `z` as a function of `x` with a red line and save it into `Pz`:
+
+```{r exo1-2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo1-1-solution"}
+Pz <- df %>% 
+    ___
+Pz
+```
+
+```{r exo1-2-solution, exercise.reveal_solution = TRUE}
+Pz <- df %>% 
+    ggplot(aes(x = x, y = z)) + 
+    geom_line(color = "red")
+Pz
+```
+
+```{r exo1-2-code-check}
+grade_code()
+```
+
+
+### 
+
+Using `ggplot`, plot a histogram of `w` with transparent blue bars surrounded by a red line, and save it into `Pw`. You can play with the number of bins too.
+
+```{r exo1-3, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo1-2-solution"}
+Pw <- df %>% 
+    ___
+Pw
+```
+
+```{r exo1-3-solution, exercise.reveal_solution = TRUE}
+Pw <- df %>% 
+    ggplot(aes(x = w)) + 
+    geom_histogram(fill = "blue", alpha=.5, color="red", bins=50)
+Pw
+```
+
+```{r exo1-3-code-check}
+grade_code()
+```
+
+
+### 
+
+Using `ggplot`, plot a density of `u` with a transparent blue area surrounded by a red line, and save it into `Pu`. Play with the `bw` parameter so that you see many peaks.
+
+```{r exo1-4, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo1-3-solution"}
+Pu <- df %>% 
+    ___
+Pu
+```
+
+```{r exo1-4-solution, exercise.reveal_solution = TRUE}
+Pu <- df %>% 
+    ggplot(aes(x = u)) + 
+    geom_density(fill = "blue", alpha=.5, color="red", bw=.02)
+Pu
+```
+
+```{r exo1-4-code-check}
+grade_code()
+```
+
+
+### 
+
+Using `patchwork`, gather the previous plots on a 2x2 grid.
+
+```{r exo1-5, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo1-4-solution"}
+Py
+Pz
+Pw
+Pu
+```
+
+```{r exo1-5-solution, exercise.reveal_solution = TRUE}
+library(patchwork)
+Py+Pz+Pw+Pu
+```
+
+```{r exo1-5-code-check}
+grade_code()
+```
+
+
+### 
+
+Using `patchwork`, gather the previous plots on a grid with 3 plots in the 1st row, and one large plot in the 2nd row. Using `plot_annotation()`, add tags such as (a), (b)...
+
+```{r exo1-6, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo1-4-solution"}
+Py
+Pz
+Pw
+Pu
+```
+
+```{r exo1-6-solution, exercise.reveal_solution = TRUE}
+library(patchwork)
+(Py + Pz + Pw) / Pu + plot_annotation(tag_levels = "a", tag_prefix="(", tag_suffix=")")
+```
+
+```{r exo1-6-code-check}
+grade_code()
 ```
