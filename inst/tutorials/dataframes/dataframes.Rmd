@@ -46,7 +46,7 @@ grade_code()
 ```
 ###
 
-Print the 4 first lines of the table
+Print the 4 first lines of the table.
 
 ```{r q1, exercise=TRUE, exercise.blanks = "___+", exercise.setup="q0-solution"}
 
@@ -66,7 +66,7 @@ grade_code()
 
 ###
 
-Print the second (*i.e.* `y`) column with three different ways
+Print the second (*i.e.* `y`) column with three different ways.
 
 ```{r q2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="q0-solution"}
 df[___]
@@ -84,9 +84,26 @@ df$y
 grade_code()
 ```
 
+
 ###
 
-Print the average of the third column
+Modify the column `z` so that it contains its value minus its minimum.
+
+```{r q2bis, exercise=TRUE, exercise.blanks = "___+", exercise.setup="q0-solution"}
+
+```
+
+```{r q2bis-solution, exercise.reveal_solution = FALSE}
+df$z <- df$z - min(df$z)
+```
+
+```{r q2bis-code-check}
+grade_code()
+```
+
+###
+
+Print the average of the third column.
 
 ```{r q3, exercise=TRUE, exercise.blanks = "___+", exercise.setup="q0-solution"}
 
@@ -94,7 +111,7 @@ Print the average of the third column
 
 
 ```{r q3-hint}
-# look at th mean() function
+# look at the mean() function
 ```
 
 ```{r q3-solution, exercise.reveal_solution = FALSE}
@@ -107,7 +124,7 @@ grade_code()
 
 ###
 
-Using `plot(x,y)`{.R} where `x` and `y` are vectors, plot the 2nd column as a function of the first
+Using `plot(x,y)`{.R} where `x` and `y` are vectors, plot the 2nd column as a function of the first.
 
 
 ```{r q4, exercise=TRUE, exercise.blanks = "___+", exercise.setup="q0-solution"}
@@ -125,7 +142,7 @@ grade_code()
 
 ###
 
-Look into the function `write.table()`{.R} to write a text file containing this `data.frame`{.R}
+Look into the function `write.table()`{.R} to write a text file containing this `data.frame`{.R}.
 
 ```{r q5, exercise=TRUE, exercise.blanks = "___+", exercise.setup="q0-solution"}
 write.table(___)
@@ -143,7 +160,7 @@ grade_code()
 
 ###
 
-Do the all the same things with a `tibble`{.R}
+Do the all the same things with a `tibble`{.R}.
 
 ```{r q6, exercise=TRUE, exercise.blanks = "___+"}
 df_tib <- tibble(___)
@@ -487,8 +504,10 @@ grade_code()
 Load `tutoR_examples("people1.csv")` and `tutoR_examples("people2.csv")` into `pp1` and `pp2`, and take a look at them.
 
 ```{r exo5-2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-1-solution"}
-pp1 <- ___
-pp2 <- ___
+tutoR_examples("people1.csv")
+tutoR_examples("people2.csv")
+pp1 <- read____(___)
+pp2 <- read____(___)
 ```
 
 ```{r exo5-2-solution, exercise.reveal_solution = FALSE}
@@ -550,7 +569,7 @@ Using `groupe_by()`{.R} and `summarize()`{.R}:
 - Show the number of people from each country, sorted by descending population (`arrange()`{.R})
 
 ```{r exo5-5, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-4-solution", exercise.lines	= 20}
-# - Show the number of males and females in the table (use the counter `n()`{.R})
+# - Show the number of males and females in the table (use the counter `n()`)
 pp %>%
     ___ %>%
     ___
@@ -570,7 +589,7 @@ pp %>%
 ```
 
 ```{r exo5-5-solution, exercise.reveal_solution = TRUE}
-# - Show the number of males and females in the table (use the counter `n()`{.R})
+# - Show the number of males and females in the table (use the counter `n()`)
 pp %>%
     group_by(gender) %>%
     summarize(count = n())
@@ -650,5 +669,211 @@ pp %>% filter(grepl("e", name))
 ```
 
 ```{r exo5-7-code-check}
+grade_code()
+```
+
+
+## Exercise 6
+
+Here we will see how to load many files at once with the `tidyverse` and how to perform some data wrangling.
+
+### Loading the data
+
+We will work with the files whose paths are stored in the vector `flist`. These files are all `.csv` files containing two columns and a header. We can use the fact that `read_csv()` accepts vectors as argument and read them all at once. 
+
+- Read them all in a tidy tibble called `tib`.
+- Make sure to add a column named `"file"` containing the list of filenames: look at the `id` parameter 
+- Modify this `"file"` column so that it contains just the file name and not the full path – look at the `basename()` function.
+
+```{r exo6-setup, include=FALSE}
+flist <- tutoR_examples("sample")
+```
+
+```{r exo6, exercise=TRUE, exercise.blanks = "___+"}
+tib <- read_csv(___,           # what do we want to read?
+               id = ___) %>%  # what is the name of the column containing the file names ?
+        mutate(___)           # modify this column so that it contains just the file name and not the full path
+```
+
+
+```{r exo6-solution, exercise.reveal_solution = FALSE}
+tib <- read_csv(flist, id = "file") %>% 
+        mutate(file = basename(file))
+```
+
+```{r exo6-code-check}
+grade_code()
+```
+
+
+### Operations on strings
+
+We also want to get information from ou file names, such as the sample number, the temperature, the time, and the time unit. Use the function [`separate()`](https://tidyr.tidyverse.org/reference/separate.html) to split the `file` column into `sample`, `T`, `time` and `time_unit`. If applicable, make sure that the resulting columns are numeric by getting rid of the annoying characters.
+
+```{r exo6-1-setup, include=FALSE}
+flist <- tutoR_examples("sample")
+tib <- read_csv(flist, id = "file") %>%
+    mutate(file = basename(file))
+```
+
+```{r exo6-1, exercise=TRUE, exercise.blanks = "___+"}
+tib <- tib %>% 
+    separate(col = ___, 
+             into = ___, 
+             convert = ___) %>% 
+    mutate(sample = as.numeric(str_replace(___)),
+           T = ___,
+           time = ___,
+           time_unit = ___
+           )
+tib
+```
+
+```{r exo6-1-solution, exercise.reveal_solution = TRUE}
+tib <- tib %>% 
+    separate(col = file, into = c("sample", "T", "time", "time_unit", NA), convert= TRUE) %>% 
+    mutate(sample = as.numeric(str_replace(sample, "sample", "")),
+           T = as.numeric(str_replace(T, "K", ""))
+           )
+tib
+```
+
+```{r exo6-1-code-check}
+grade_code()
+```
+
+###
+
+Now we want all times to be in the same unit. Using `mutate()` and `ifelse()`, convert the minutes in seconds, then get rid of the `time_unit` column.
+
+```{r exo6-1bis-setup, include=FALSE}
+flist <- tutoR_examples("sample")
+tib <- read_csv(flist, id = "file") %>%
+    mutate(file = basename(file)) %>% 
+    separate(col = file, into = c("sample", "T", "time", "time_unit", NA), convert= TRUE) %>% 
+    mutate(sample = as.numeric(str_replace(sample, "sample", "")),
+           T = as.numeric(str_replace(T, "K", ""))
+           )
+```
+
+```{r exo6-1bis, exercise=TRUE, exercise.blanks = "___+"}
+tib <- tib %>% 
+    mutate(time = ifelse(test, yes, no)) %>% # convert minutes to seconds
+    select(___) # get rid of the `time_unit` column
+tib
+```
+
+```{r exo6-1bis-solution, exercise.reveal_solution = TRUE}
+tib <- tib %>% 
+    mutate(time = ifelse(time_unit=="min", time*60, time)) %>% 
+    select(-time_unit)
+tib
+```
+
+```{r exo6-1bis-code-check}
+grade_code()
+```
+
+### Plotting data
+
+Before going further, we want to take a look at our data using `ggplot`. Modify the following code so that a color is added as a function of the sample number, and the plots are gathered on a grid showing the time as a function of the temperature.
+
+```{r exo6-2-setup, include=FALSE}
+flist <- tutoR_examples("sample")
+tib <- read_csv(flist, id = "file") %>%
+    mutate(file = basename(file)) %>% 
+    separate(col = file, into = c("sample", "T", "time", "time_unit", NA), convert= TRUE) %>% 
+    mutate(sample = as.numeric(str_replace(sample, "sample", "")),
+           T = as.numeric(str_replace(T, "K", ""))
+           ) %>% 
+    mutate(time = ifelse(time_unit=="min", time*60, time)) %>% 
+    select(-time_unit)
+```
+
+```{r exo6-2, exercise=TRUE, exercise.blanks = "___+"}
+tib %>% 
+    ggplot(aes(x = x, y = y, color = ___)) +
+        geom_point() + 
+        facet_grid(___ ~ ___)
+```
+
+```{r exo6-2-solution, exercise.reveal_solution = TRUE}
+tib %>% 
+    ggplot(aes(x = x, y = y, color = factor(sample))) +
+        geom_point() + 
+        facet_grid(time ~ T)
+```
+
+```{r exo6-2-code-check}
+grade_code()
+```
+
+### Nesting data
+
+We want to **nest** our data to be able to perform operations on them – like fitting them. Using the `nest()` function, nest the data so that we end up with only 2 columns: `file` and `data`.
+
+```{r exo6-3-setup, include=FALSE}
+flist <- tutoR_examples("sample")
+tib <- read_csv(flist, id = "file") %>%
+    mutate(file = basename(file)) %>% 
+    separate(col = file, into = c("sample", "T", "time", "time_unit", NA), convert= TRUE) %>% 
+    mutate(sample = as.numeric(str_replace(sample, "sample", "")),
+           T = as.numeric(str_replace(T, "K", ""))
+           ) %>% 
+    mutate(time = ifelse(time_unit=="min", time*60, time)) %>% 
+    select(-time_unit)
+```
+
+```{r exo6-3, exercise=TRUE, exercise.blanks = "___+"}
+tib <- tib %>% 
+    nest(___)
+tib
+```
+
+```{r exo6-3-hint}
+# What are the columns to nest ? data = c(these_columns)
+```
+
+```{r exo6-3-solution, exercise.reveal_solution = FALSE}
+tib <- tib %>% 
+    nest(data = c(x, y))
+tib
+```
+
+```{r exo6-3-code-check}
+grade_code()
+```
+
+
+### Fitting all data
+
+Now we can fit all our data at once with a linear model:
+
+```{r exo6-4-setup, include=FALSE}
+flist <- tutoR_examples("sample")
+tib <- read_csv(flist, id = "file") %>%
+    mutate(file = basename(file)) %>% 
+    separate(col = file, into = c("sample", "T", "time", "time_unit", NA), convert= TRUE) %>% 
+    mutate(sample = as.numeric(str_replace(sample, "sample", "")),
+           T = as.numeric(str_replace(T, "K", ""))
+           ) %>% 
+    mutate(time = ifelse(time_unit=="min", time*60, time)) %>% 
+    select(-time_unit) %>%
+    nest(data = c(x,y))
+```
+
+```{r exo6-4, exercise=TRUE, exercise.blanks = "___+"}
+tib <- tib %>% 
+    mutate(fit = map(data, ~lm(data=., x~y)))
+tib
+```
+
+```{r exo6-4-solution, exercise.reveal_solution = TRUE}
+tib <- tib %>%
+    mutate(fit = map(data, ~ lm(data = ., x ~ y)))
+tib
+```
+
+```{r exo6-4-code-check}
 grade_code()
 ```
