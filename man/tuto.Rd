@@ -7,7 +7,7 @@
 tuto(tutoname = NULL)
 }
 \arguments{
-\item{tuto}{Tutorial name. If NULL, prints the list of all available tutorials.}
+\item{tutoname}{Tutorial name. If NULL, prints the list of all available tutorials.}
 }
 \value{
 
