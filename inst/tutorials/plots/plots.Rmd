@@ -69,7 +69,7 @@ grade_code()
 
 Modify the following code to place each `carb` in a different facet. Also add a color, but remove the legend.
 ```{r q2, exercise=TRUE, exercise.blanks = "___+"}
-mtcars %>% # we work on the iris dataset, send it to ggplot
+mtcars %>% # we work on the mtcars dataset, send it to ggplot
     ggplot(aes(x = wt, y = mpg))+ # define the x and y variables of the plot, and also the color
         geom_point() +   # plot with points
         facet____(___) + # add a faceting
@@ -93,7 +93,7 @@ grade_code()
 
 Modify the following code to arrange `mpg` vs `wt` plots on a grid showing `gear` vs `carb`. Also add a color depending on `cyl`. Also, try adding a free `x` scale range, or a free `y` scale range, or free `x` and `y` scale ranges.
 ```{r q3, exercise=TRUE, exercise.blanks = "___+"}
-mtcars %>% # we work on the iris dataset, send it to ggplot
+mtcars %>% # we work on the mtcars dataset, send it to ggplot
     ggplot(aes(x = ___, y = ___))+ # define the x and y variables of the plot, and also the color
         geom_point() +   # plot with points
         facet____(___) # add a faceting
