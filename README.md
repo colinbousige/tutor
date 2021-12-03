@@ -25,12 +25,11 @@ Then run the following to install the `tutoR` package:
 devtools::install_github("colinbousige/tutoR")
 ```
 
-It is also recommended to install the following packages, as they are
-used in the exercises to learn about them:
+It is also recommended to install the following package, as we will use
+it heavily in the exercises:
 
 ``` r
 install.packages("tidyverse")
-install.packages("minpack.lm")
 ```
 
 # Usage

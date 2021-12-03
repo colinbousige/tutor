@@ -6,7 +6,7 @@ Author: Colin BOUSIGE <colin.bousige@cnrs.fr>
 Maintainer: Colin BOUSIGE <colin.bousige@cnrs.fr>
 Description: A collection of interactive tutorials to learn R.
     This goes with the online class [Reproducible data treatment with R](http://lmi.cnrs.fr/r/)
-License: MIT
+License: [Creative Commons Attribution-ShareAlike 3.0 License](http://creativecommons.org/licenses/by-sa/3.0/)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
