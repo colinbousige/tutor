@@ -32,6 +32,7 @@ Attribute to `x` the value `2.5`, and compute the exponential of its squared val
 
 ```{r qblank, exercise=TRUE, exercise.blanks = "___+"}
 x <- ___
+___
 ```
 
 
@@ -75,8 +76,7 @@ floor(x) - ceiling(y)
 ```
 
 ```{r q1-hint}
-# look into 
-as.numeric()
+# look into as.numeric()
 ```
 
 ```{r q1-solution, exercise.reveal_solution = FALSE}
@@ -158,10 +158,11 @@ Save your name as a string in a variable, and print "My name is: yourname" using
 
 ```{r qstring1, exercise=TRUE, exercise.blanks = "___+"}
 name <- ___
+print(___, ___)
 ```
 
 ```{r qstring1-hint}
-name <- "___+"
+name <- "___"
 ```
 
 ```{r qstring1-solution, exercise.reveal_solution = FALSE}
