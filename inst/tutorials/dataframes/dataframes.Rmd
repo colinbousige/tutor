@@ -194,7 +194,7 @@ We will work with 3 different files:
 
 ###
 
-Load them into separate `data.frames`{.R}. Look into the options of `read.table()`{.R}, `read.csv()`{.R}, `readxl::read_excel()`{.R}, to get the proper data fields. Make sure that the `rubis_01` data.frame has `w` and `intensit` as column names.
+Load them into separate `data.frames`{.R}. Look into the options of `read.table()`{.R}, `read.csv()`{.R}, `readxl::read_excel()`{.R}, to get the proper data fields. Make sure that the `rubis_01` data.frame has `w` and `intensity` as column names.
 
 ```{r exo2-1, exercise=TRUE, exercise.blanks = "___+"}
 rubis_01   <- ___(tutor_examples("rubis_01.txt"), ___)
@@ -385,7 +385,18 @@ grade_code()
 
 Create a subset containing the data for Montpellier using a [filtering](https://dplyr.tidyverse.org/reference/filter.html) function from the `tidyverse`.
 
-```{r exo4-4, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-3-solution"}
+```{r, exo4-4-setup}
+library(tidyverse)
+popul <- read_csv(tutor_examples("population.csv"))
+popul.tidy <- popul %>%
+    pivot_longer(
+        cols = -year,
+        names_to = "city",
+        values_to = "pop"
+    )
+```
+
+```{r exo4-4, exercise=TRUE, exercise.blanks = "___+"}
 mtp <- popul.tidy %>% ___
 ```
 
@@ -400,7 +411,20 @@ grade_code()
 - What is the max and min of population in this city?
 - The average population over time?
 
-```{r exo4-5, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-4-solution"}
+
+```{r, exo4-5-setup}
+library(tidyverse)
+popul <- read_csv(tutor_examples("population.csv"))
+popul.tidy <- popul %>%
+    pivot_longer(
+        cols = -year,
+        names_to = "city",
+        values_to = "pop"
+    )
+mtp <- popul.tidy %>% filter(city == "Montpellier")
+```
+
+```{r exo4-5, exercise=TRUE, exercise.blanks = "___+"}
 mtp
 ```
 
@@ -419,7 +443,19 @@ grade_code()
 
 What is the total population in 2012?
 
-```{r exo4-6, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-4-solution"}
+```{r, exo4-6-setup}
+library(tidyverse)
+popul <- read_csv(tutor_examples("population.csv"))
+popul.tidy <- popul %>%
+    pivot_longer(
+        cols = -year,
+        names_to = "city",
+        values_to = "pop"
+    )
+mtp <- popul.tidy %>% filter(city == "Montpellier")
+```
+
+```{r exo4-6, exercise=TRUE, exercise.blanks = "___+"}
 popul.tidy %>% 
     ___ %>%         # You need to filter the data for the year 2012
     ___ %>%         # Then select the right column
@@ -442,7 +478,19 @@ grade_code()
 
 What is the total population per year?
 
-```{r exo4-7, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-4-solution"}
+```{r, exo4-7-setup}
+library(tidyverse)
+popul <- read_csv(tutor_examples("population.csv"))
+popul.tidy <- popul %>%
+    pivot_longer(
+        cols = -year,
+        names_to = "city",
+        values_to = "pop"
+    )
+mtp <- popul.tidy %>% filter(city == "Montpellier")
+```
+
+```{r exo4-7, exercise=TRUE, exercise.blanks = "___+"}
 popul.tidy %>% 
     ___ %>%    # You need to group data per year
     ___        # Then summarize the data of each year as 
@@ -463,7 +511,19 @@ grade_code()
 
 What is the average population per city over the years?
 
-```{r exo4-8, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo4-4-solution"}
+```{r, exo4-8-setup}
+library(tidyverse)
+popul <- read_csv(tutor_examples("population.csv"))
+popul.tidy <- popul %>%
+    pivot_longer(
+        cols = -year,
+        names_to = "city",
+        values_to = "pop"
+    )
+mtp <- popul.tidy %>% filter(city == "Montpellier")
+```
+
+```{r exo4-8, exercise=TRUE, exercise.blanks = "___+"}
 popul.tidy %>%
     ___ %>%  # You need to group data per...?
     ___      # Then...?
@@ -545,9 +605,19 @@ grade_code()
 
 ###
 
+```{r exo5-4-setup}
+library(tidyverse)
+library(lubridate)
+pp1 <- read_csv(tutor_examples("people1.csv"))
+pp2 <- read_csv(tutor_examples("people2.csv"))
+pp <- pp1 %>%
+    inner_join(pp2) %>%
+    mutate(age = time_length(today() - dateofbirth, "years"))
+```
+
 Display a summary of the table using `str()`{.R}
 
-```{r exo5-4, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-3-solution"}
+```{r exo5-4, exercise=TRUE, exercise.blanks = "___+"}
 
 ```
 
@@ -568,7 +638,18 @@ Using `groupe_by()`{.R} and `summarize()`{.R}:
 - Show the average size per gender and institution
 - Show the number of people from each country, sorted by descending population (`arrange()`{.R})
 
-```{r exo5-5, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-4-solution", exercise.lines	= 20}
+
+```{r exo5-5-setup}
+library(tidyverse)
+library(lubridate)
+pp1 <- read_csv(tutor_examples("people1.csv"))
+pp2 <- read_csv(tutor_examples("people2.csv"))
+pp <- pp1 %>%
+    inner_join(pp2) %>%
+    mutate(age = time_length(today() - dateofbirth, "years"))
+```
+
+```{r exo5-5, exercise=TRUE, exercise.blanks = "___+", exercise.lines = 20}
 # - Show the number of males and females in the table (use the counter `n()`)
 pp %>%
     ___ %>%
@@ -619,7 +700,18 @@ Using `select()`{.R}, display:
 - only the name and age columns
 - all but the name column
 
-```{r exo5-6, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-5-solution"}
+
+```{r exo5-6-setup}
+library(tidyverse)
+library(lubridate)
+pp1 <- read_csv(tutor_examples("people1.csv"))
+pp2 <- read_csv(tutor_examples("people2.csv"))
+pp <- pp1 %>%
+    inner_join(pp2) %>%
+    mutate(age = time_length(today() - dateofbirth, "years"))
+```
+
+```{r exo5-6, exercise=TRUE, exercise.blanks = "___+"}
 # - only the name and age columns
 pp ___
 # - all but the name column
@@ -646,7 +738,17 @@ Using `filter()`{.R}, show data only for:
 - People older than 22 
 - People with a `e` in their name
 
-```{r exo5-7, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-6-solution"}
+```{r exo5-7-setup}
+library(tidyverse)
+library(lubridate)
+pp1 <- read_csv(tutor_examples("people1.csv"))
+pp2 <- read_csv(tutor_examples("people2.csv"))
+pp <- pp1 %>%
+    inner_join(pp2) %>%
+    mutate(age = time_length(today() - dateofbirth, "years"))
+```
+
+```{r exo5-7, exercise=TRUE, exercise.blanks = "___+"}
 # - Chinese people
 pp ___
 # - From institution ECL and UCBL

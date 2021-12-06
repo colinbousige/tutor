@@ -6,7 +6,7 @@
 #' @param pattern Pattern to be found in file (regex filter). If `NULL`, no filter applied.
 #' @export
 #' @examples
-#' tutor_examples()
+#' tutor_examples() |> head()
 #' tutor_examples("people")
 tutor_examples <- function(pattern = NULL) {
     flist <- list.files(system.file("extdata", package = "tutor"), full.names = TRUE)
