@@ -12,7 +12,7 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 # rmarkdown::run("dataframe.Rmd")
 library(learnr)
-library(tutoR)
+library(tutor)
 library(tidyverse)
 gradethis::gradethis_setup()
 ```
@@ -187,9 +187,9 @@ grade_code()
 ## Exercise 2
 
 We will work with 3 different files:
-    - `tutoR_examples("rubis_01.txt")`
-    - `tutoR_examples("population.csv")`
-    - `tutoR_examples("FTIR_rocks.xlsx")`
+    - `tutor_examples("rubis_01.txt")`
+    - `tutor_examples("population.csv")`
+    - `tutor_examples("FTIR_rocks.xlsx")`
 
 
 ###
@@ -197,15 +197,15 @@ We will work with 3 different files:
 Load them into separate `data.frames`{.R}. Look into the options of `read.table()`{.R}, `read.csv()`{.R}, `readxl::read_excel()`{.R}, to get the proper data fields. Make sure that the `rubis_01` data.frame has `w` and `intensit` as column names.
 
 ```{r exo2-1, exercise=TRUE, exercise.blanks = "___+"}
-rubis_01   <- ___(tutoR_examples("rubis_01.txt"), ___)
-population <- ___(tutoR_examples("population.csv"))
-FTIR_rocks <- ___(tutoR_examples("FTIR_rocks.xlsx"))
+rubis_01   <- ___(tutor_examples("rubis_01.txt"), ___)
+population <- ___(tutor_examples("population.csv"))
+FTIR_rocks <- ___(tutor_examples("FTIR_rocks.xlsx"))
 ```
 
 ```{r exo2-1-solution, exercise.reveal_solution = FALSE}
-rubis_01   <- read.table(tutoR_examples("rubis_01.txt"), col.names = c("w", "intensity"))
-population <- read.csv(tutoR_examples("population.csv"))
-FTIR_rocks <- readxl::read_excel(tutoR_examples("FTIR_rocks.xlsx"))
+rubis_01   <- read.table(tutor_examples("rubis_01.txt"), col.names = c("w", "intensity"))
+population <- read.csv(tutor_examples("population.csv"))
+FTIR_rocks <- readxl::read_excel(tutor_examples("FTIR_rocks.xlsx"))
 ```
 
 ```{r exo2-1-code-check}
@@ -248,8 +248,8 @@ Do the same things by loading directly into tibbles.
 
 ```{r exo2-3-solution, exercise.reveal_solution = FALSE}
 library(tidyverse)
-rubis_01 <- read_table(tutoR_examples("rubis_01.txt"), col_names = c("w", "intensity"))
-population <- read_csv(tutoR_examples("population.csv"))
+rubis_01 <- read_table(tutor_examples("rubis_01.txt"), col_names = c("w", "intensity"))
+population <- read_csv(tutor_examples("population.csv"))
 ```
 
 ```{r exo2-3-code-check}
@@ -259,12 +259,12 @@ grade_code()
 
 ## Exercise 3
 
-We will use the TGA data file `tutoR_examples("ATG.txt")` ([click link](https://github.com/colinbousige/tutoR/blob/master/inst/extdata/ATG.txt) to take a look at the file).
+We will use the TGA data file `tutor_examples("ATG.txt")` ([click link](https://github.com/colinbousige/tutor/blob/master/inst/extdata/ATG.txt) to take a look at the file).
 
 Load it into a `data.frame`{.R}. Look into the options of [`read.table()`{.R}](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/read.table) to get the proper data fields.
 
 ```{r exo3-1, exercise=TRUE, exercise.blanks = "___+"}
-d <- read.table(tutoR_examples("ATG.txt"),
+d <- read.table(tutor_examples("ATG.txt"),
                 ___
                 )
 d
@@ -278,14 +278,14 @@ d
 
 ```{r exo3-1-solution, exercise.reveal_solution = TRUE}
 # Two versions
-d <- read.table(tutoR_examples("ATG.txt"),
+d <- read.table(tutor_examples("ATG.txt"),
     skip = 12,
     header = FALSE,
     nrows = 4088
 )
 names(d) <- c("Index", "t", "Ts", "Tr", "Value")
 head(d)
-d <- read.table(tutoR_examples("ATG.txt"),
+d <- read.table(tutor_examples("ATG.txt"),
     skip = 10,
     comment.char = "[",
     header = TRUE,
@@ -300,7 +300,7 @@ Do the same using the `tidyverse` function [`read_table()`](https://www.rdocumen
 
 ```{r exo3-2, exercise=TRUE, exercise.blanks = "___+"}
 library(tidyverse)
-d <- read_table(tutoR_examples("ATG.txt"),
+d <- read_table(tutor_examples("ATG.txt"),
                 ___
                 )
 d
@@ -308,7 +308,7 @@ d
 
 ```{r exo3-2-solution, exercise.reveal_solution = TRUE}
 library(tidyverse)
-d <- read_table(tutoR_examples("ATG.txt"), 
+d <- read_table(tutor_examples("ATG.txt"), 
                 skip    = 10,
                 comment = "[") %>% 
         drop_na()
@@ -320,16 +320,16 @@ d
 
 ### 
 
-Load the `tutoR_examples("population.csv")` file into a `tibble`{.R} called `popul`.
+Load the `tutor_examples("population.csv")` file into a `tibble`{.R} called `popul`.
 
 ```{r exo4-1, exercise=TRUE, exercise.blanks = "___+"}
 library(___)
-popul <- read____(tutoR_examples("population.csv"))
+popul <- read____(tutor_examples("population.csv"))
 ```
 
 ```{r exo4-1-solution, exercise.reveal_solution = FALSE}
 library(tidyverse)
-popul <- read_csv(tutoR_examples("population.csv"))
+popul <- read_csv(tutor_examples("population.csv"))
 ```
 
 ```{r exo4-1-code-check}
@@ -501,18 +501,18 @@ grade_code()
 
 ###
 
-Load `tutoR_examples("people1.csv")` and `tutoR_examples("people2.csv")` into `pp1` and `pp2`, and take a look at them.
+Load `tutor_examples("people1.csv")` and `tutor_examples("people2.csv")` into `pp1` and `pp2`, and take a look at them.
 
 ```{r exo5-2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-1-solution"}
-tutoR_examples("people1.csv")
-tutoR_examples("people2.csv")
+tutor_examples("people1.csv")
+tutor_examples("people2.csv")
 pp1 <- read____(___)
 pp2 <- read____(___)
 ```
 
 ```{r exo5-2-solution, exercise.reveal_solution = FALSE}
-pp1 <- read_csv(tutoR_examples("people1.csv"))
-pp2 <- read_csv(tutoR_examples("people2.csv"))
+pp1 <- read_csv(tutor_examples("people1.csv"))
+pp2 <- read_csv(tutor_examples("people2.csv"))
 ```
 
 ```{r exo5-2-code-check}
@@ -686,7 +686,7 @@ We will work with the files whose paths are stored in the vector `flist`. These 
 - Modify this `"file"` column so that it contains just the file name and not the full path – look at the `basename()` function.
 
 ```{r exo6-setup, include=FALSE}
-flist <- tutoR_examples("sample")
+flist <- tutor_examples("sample")
 ```
 
 ```{r exo6, exercise=TRUE, exercise.blanks = "___+"}
@@ -711,7 +711,7 @@ grade_code()
 We also want to get information from ou file names, such as the sample number, the temperature, the time, and the time unit. Use the function [`separate()`](https://tidyr.tidyverse.org/reference/separate.html) to split the `file` column into `sample`, `T`, `time` and `time_unit`. If applicable, make sure that the resulting columns are numeric by getting rid of the annoying characters.
 
 ```{r exo6-1-setup, include=FALSE}
-flist <- tutoR_examples("sample")
+flist <- tutor_examples("sample")
 tib <- read_csv(flist, id = "file") %>%
     mutate(file = basename(file))
 ```
@@ -747,7 +747,7 @@ grade_code()
 Now we want all times to be in the same unit. Using `mutate()` and `ifelse()`, convert the minutes in seconds, then get rid of the `time_unit` column.
 
 ```{r exo6-1bis-setup, include=FALSE}
-flist <- tutoR_examples("sample")
+flist <- tutor_examples("sample")
 tib <- read_csv(flist, id = "file") %>%
     mutate(file = basename(file)) %>% 
     separate(col = file, into = c("sample", "T", "time", "time_unit", NA), convert= TRUE) %>% 
@@ -779,7 +779,7 @@ grade_code()
 Before going further, we want to take a look at our data using `ggplot`. Modify the following code so that a color is added as a function of the sample number, and the plots are gathered on a grid showing the time as a function of the temperature.
 
 ```{r exo6-2-setup, include=FALSE}
-flist <- tutoR_examples("sample")
+flist <- tutor_examples("sample")
 tib <- read_csv(flist, id = "file") %>%
     mutate(file = basename(file)) %>% 
     separate(col = file, into = c("sample", "T", "time", "time_unit", NA), convert= TRUE) %>% 
@@ -813,7 +813,7 @@ grade_code()
 We want to **nest** our data to be able to perform operations on them – like fitting them. Using the `nest()` function, nest the data so that we end up with only 2 columns: `file` and `data`.
 
 ```{r exo6-3-setup, include=FALSE}
-flist <- tutoR_examples("sample")
+flist <- tutor_examples("sample")
 tib <- read_csv(flist, id = "file") %>%
     mutate(file = basename(file)) %>% 
     separate(col = file, into = c("sample", "T", "time", "time_unit", NA), convert= TRUE) %>% 
@@ -850,7 +850,7 @@ grade_code()
 Now we can fit all our data at once with a linear model:
 
 ```{r exo6-4-setup, include=FALSE}
-flist <- tutoR_examples("sample")
+flist <- tutor_examples("sample")
 tib <- read_csv(flist, id = "file") %>%
     mutate(file = basename(file)) %>% 
     separate(col = file, into = c("sample", "T", "time", "time_unit", NA), convert= TRUE) %>% 

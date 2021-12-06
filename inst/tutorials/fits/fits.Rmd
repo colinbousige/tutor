@@ -12,7 +12,7 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 # rmarkdown::run("fits.Rmd")
 library(learnr)
-library(tutoR)
+library(tutor)
 library(tidyverse)
 gradethis::gradethis_setup()
 ```

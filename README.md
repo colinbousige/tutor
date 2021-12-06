@@ -1,5 +1,7 @@
 
-> **This is a work in progress!**
+# tutor <img src="man/figures/logo.png" align="right" />
+
+<br> <br>
 
 # Description
 
@@ -10,8 +12,8 @@ It also contains some user-defined functions that are used in the class.
 
 # Installation
 
-First, install the packages `devtools` and `learnr` if you don’t have
-them yet:
+First, install the packages `devtools`, `learnr` and `gradethis` if you
+don’t have them yet:
 
 ``` r
 install.packages("devtools")
@@ -19,10 +21,10 @@ devtools::install_github("rstudio/learnr", force = TRUE)
 devtools::install_github("rstudio/gradethis", force = TRUE)
 ```
 
-Then run the following to install the `tutoR` package:
+Then run the following to install the `tutor` package:
 
 ``` r
-devtools::install_github("colinbousige/tutoR")
+devtools::install_github("colinbousige/tutor")
 ```
 
 It is also recommended to install the following package, as we will use
@@ -39,7 +41,7 @@ install.packages("tidyverse")
 After having installed the package, launch a tutorial by running:
 
 ``` r
-library(tutoR)
+library(tutor)
 tuto() # prints the list of available tutorials
 tuto("tutorial_name")
 ```
@@ -54,27 +56,12 @@ In this call, `"tutorial_name"` can be any of:
 
 ## Example Files
 
-The `tutoR` package also come bundled with some example files. A
+The `tutor` package also come bundled with some example files. A
 complete list can be accessed with:
 
 ``` r
-tutoR_example()
-tutoR_example(pattern = "csv") # apply a regex filter
+tutor_example()
+tutor_example(pattern = "csv") # apply a regex filter
 # To read a file, for example:
-read.csv(tutoR_example("CO2_emission.csv"))
+read.csv(tutor_example("CO2_emission.csv"))
 ```
-
-## Functions
-
-List of functions included in the package:
-
--   [`dxdy()`](R/dxdy.R)
--   [`Gaussian()`](R/Gaussian.R)
--   [`integ()`](R/integ.R)
--   [`Lorentzian()`](R/Lorentzian.R)
--   [`norm01()`](R/norm01.R)
--   [`Pruby()`](R/Pruby.R)
--   [`Rshift_to_lambda()`](R/Rshift_to_lambda.R)
--   [`sinc()`](R/sinc.R)
--   [`tuto()`](R/tuto.R)
--   [`tutoR_examples()`](R/tutoR_example.R)

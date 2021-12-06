@@ -13,9 +13,9 @@ runtime: shiny_prerendered
 # rmarkdown::run("plots.Rmd")
 library(learnr)
 library(tidyverse)
-library(tutoR)
+library(tutor)
 library(patchwork)
-df <- read_table(tutoR_examples("exo_fit.txt"))
+df <- read_table(tutor_examples("exo_fit.txt"))
 ```
 
 ## Exercise 1

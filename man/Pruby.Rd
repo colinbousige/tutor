@@ -2,8 +2,7 @@
 % Please edit documentation in R/Pruby.R
 \name{Pruby}
 \alias{Pruby}
-\title{Pressure <-> Ruby Raman shift \cr
-Parameters from DOI: 10.1063/1.2135877}
+\title{Pressure <-> Ruby Raman shift}
 \usage{
 Pruby(w, laser = 532, P = -1, w0 = -1, l = FALSE)
 }
@@ -23,10 +22,9 @@ If w0>0, corrects for potential strain in the ruby. Otherwise, uses the referenc
 
 }
 \description{
-Pressure <-> Ruby Raman shift \cr
-Parameters from DOI: 10.1063/1.2135877
+Parameters from DOI: \href{http:doi.org/10.1063/1.2135877}{10.1063/1.2135877}
 }
 \examples{
 Pruby(P = 1) # returns expected R2 position in cm-1
-Pruby(w = 4401) # return corresponding pressure
+Pruby(w = 4401) # return corresponding pressure in GPa
 }

@@ -1,5 +1,6 @@
-#' Pressure <-> Ruby Raman shift \cr
-#' Parameters from DOI: 10.1063/1.2135877
+#' Pressure <-> Ruby Raman shift
+#'
+#' Parameters from DOI: \href{http:doi.org/10.1063/1.2135877}{10.1063/1.2135877}
 #'
 #' @param w Position of the R2 ruby line in cm-1
 #' @param laser laser wavelength in nm (default=532)
@@ -13,7 +14,7 @@
 #'
 #' @examples
 #' Pruby(P = 1) # returns expected R2 position in cm-1
-#' Pruby(w = 4401) # return corresponding pressure
+#' Pruby(w = 4401) # return corresponding pressure in GPa
 Pruby <- function(w, laser = 532, P = -1, w0 = -1, l = FALSE) {
     A <- 1876
     dA <- 6.7

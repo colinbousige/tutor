@@ -15,3 +15,7 @@ tuto(tutoname = NULL)
 \description{
 Easy syntax to launch a tutorial.
 }
+\examples{
+tuto()
+# tuto("plots")
+}
