@@ -17,4 +17,145 @@ library(tidyverse)
 gradethis::gradethis_setup()
 ```
 
-I still have to do this one...
+## Exercise 1
+
+Load the `tidyverse` library, then read the file `tutor_examples("exo_fit.txt")` into a `tibble`{.R} called `tofit`.
+
+```{r exo1, exercise=TRUE, exercise.blanks = "___+"}
+library(___)
+tutor_examples("exo_fit.txt")
+tofit <- ___
+tofit
+```
+
+```{r exo1-solution, exercise.reveal_solution = FALSE}
+tofit <- read_table(tutor_examples("exo_fit.txt"))
+```
+
+```{r exo1-code-check}
+grade_code()
+```
+
+###
+
+Plot all columns as a function of `x` to see your data. For this, use on-the-fly the function `pivot_longer()`{.R} to turn the tibble into a tidy one:
+
+```{r exo1-1-setup, include=FALSE}
+tofit <- read_table(tutor_examples("exo_fit.txt"))
+```
+
+```{r exo1-1, exercise=TRUE, exercise.blanks = "___+"}
+tofit %>% 
+    pivot_longer(cols = ___, # what column do we keep? cols = -this_column
+                 values_to = ___, # name of the column gathering the values
+                 names_to = ___ # names of the column gathering the variable names
+                 ) %>% 
+    ggplot(aes(x = ___, y = ___)) + # what columns contain the x and y values?
+        geom_point() + # plot with points
+        facet____(~ ___, scales = ___) # put the plots on a grid varying according to a column, with free scales
+```
+
+```{r exo1-1-solution, exercise.reveal_solution = FALSE}
+tofit %>% 
+    pivot_longer(cols = -x,
+                 values_to = "y",
+                 names_to = "variable"
+                 ) %>% 
+    ggplot(aes(x = x, y = y)) +
+        geom_point() +
+        facet_wrap(~variable, scales="free")
+```
+
+```{r exo1-1-code-check}
+grade_code()
+```
+
+
+###
+
+Using `lm()`{.R} or `nls()`{.R} fit each column as a function of `x` and display the "experimental" data and the fit on the same graph.
+    + Tip: Take a look at the function `dnorm()`{.R} to define a Gaussian
+
+
+```{r exo1-2-setup, include=FALSE}
+tofit <- read_table(tutor_examples("exo_fit.txt"))
+```
+
+```{r exo1-2, exercise=TRUE, exercise.blanks = "___+", exercise.lines=31}
+fit_y <- lm(data = ___, ___) # what is the dataframe? what do we fit against what?
+predict(fit_y)
+P1 <- ___ %>% # what dataframe are we working on?
+    ggplot(aes(x = ___, y = ___)) + # what are the x and y values of the plot?
+        geom____() + # plot the data to fit with points
+        geom_line(___, col = ___) # how do we add the fitted values with a red line?
+# # # # # # # # # # # # # # # # # # # # # # #
+fit_z <- nls(data = ___, # the data
+    ___, # the function
+    start = list(___) # the list of starting parameters
+)
+P2 <- ___ %>% 
+    ggplot(___) +
+        ___
+# # # # # # # # # # # # # # # # # # # # # # #
+fit_w <- lm(___) # how can we fit w with a linear function?
+P3 <- ___ %>% 
+    ggplot(___) +
+        ___
+# # # # # # # # # # # # # # # # # # # # # # #
+fit_u <- lm(___) # how can we fit u with a linear function?
+P4 <- ___ %>% 
+    ggplot(___) +
+        ___
+# # # # # # # # # # # # # # # # # # # # # # #
+fit_s <- ___ # linear or non-linear fit?
+P5 <- ___ %>% 
+    ggplot(___) +
+        ___
+# # # # # # # # # # # # # # # # # # # # # # #
+library(patchwork) # to gather the plots on a grid easily
+P1 + P2 + P3 + P4 + P5 # plot on a grid
+```
+
+
+```{r exo1-2-solution, exercise.reveal_solution = TRUE}
+fit_y <- lm(data = tofit, y ~ x)
+P1 <- tofit %>% ggplot(aes(x = x, y = y)) +
+    geom_point() +
+    geom_line(aes(y = predict(fit_y)), col = "red")
+# # # # # # # # # # # # # # # # # # # # # # # 
+fit_z <- nls(data = tofit,
+    z ~ A * dnorm(x, mean, sd),
+    start = list(
+        A = 8,
+        mean = 4,
+        sd = 1
+    ))
+P2 <- tofit %>% ggplot(aes(x = x, y = z)) +
+    geom_point() +
+    geom_line(aes(y = predict(fit_z)), col = "red")
+# # # # # # # # # # # # # # # # # # # # # # #
+fit_w <- lm(data = tofit, log(w) ~ x)
+P3 <- tofit %>% ggplot(aes(x = x, y = log(w))) +
+    geom_point() +
+    geom_line(aes(y = predict(fit_w)), col = "red")
+# # # # # # # # # # # # # # # # # # # # # # #
+fit_u <- lm(data = tofit, exp(u) ~ x)
+P4 <- tofit %>% ggplot(aes(x = x, y = exp(u))) +
+    geom_point() +
+    geom_line(aes(y = predict(fit_u)), col = "red")
+# # # # # # # # # # # # # # # # # # # # # # #
+fit_s <- lm(data = tofit, log(s) ~ x)
+P5 <- tofit %>% ggplot(aes(x = x, y = log(s))) +
+    geom_point() +
+    geom_line(aes(y = predict(fit_s)), col = "red")
+# # # # # # # # # # # # # # # # # # # # # # #
+library(patchwork)
+P1 + P2 + P3 + P4 + P5
+```
+
+```{r exo1-2-code-check}
+grade_code()
+```
+
+
+
