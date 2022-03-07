@@ -295,31 +295,30 @@ grade_code()
 ```
 
 
-## Exercise 4
+###
 
-Let's create a named vector containing age of the students in the class, the names of each value being the first name of the students. 
+Finally, `tidyr` contains the `separate()` function that is very useful to do this kind of things. However, `separate()` takes a table as first argument, not a vector:
 
-```{r exo2-1, exercise=TRUE, exercise.blanks = "___+"}
-students <- c(
-    "John" = 35,
-    "Jane" = 36
-)
-students
+```{r exo3-4-setup, include=FALSE}
+times <- c("010_min", "100_sec", "200_sec", "050_min")
 ```
 
-Then (do it in Rstudio this time):
+```{r exo3-4, exercise=TRUE, exercise.blanks = "___+"}
+tibble(times) %>% 
+    separate(input_column, output_columns, other_options)
+```
 
-- Compute the average age and its standard deviation
-- Compute the median age
-- What is the maximum, minimum and range of the ages in the class?
-- What are all the student names in the class?
-- Print the sorted ages by increasing and decreasing order
-- Print the ages sorted by alphabetically ordered names (increasing and decreasing)
-- Show a histogram of the ages distribution using `hist()`{.R} and play with the parameter `breaks` to modify the histogram
-- Show a boxplot of the ages distribution using `boxplot()`{.R}
+```{r exo3-4-solution, exercise.reveal_solution = TRUE}
+tibble(times) %>% 
+    separate(times, c("values", "units"), convert = TRUE)
+```
+
+```{r exo3-4-code-check}
+grade_code()
+```
 
 
-## Exercise 5
+## Exercise 4
 
 Let's say we have this population data for these French cities for the two years 1962 and 2012:
 ```{r exo5-setup, echo=FALSE}
@@ -350,7 +349,7 @@ knitr::kable(df[,11:ncol(df)])
 
 Create a `cities` vector containing all the cities listed above:
 
-```{r exo5-1, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup"}
+```{r exo5-1, exercise=TRUE, exercise.blanks = "___+"}
 cities <- c(___)
 ```
 
@@ -371,7 +370,7 @@ grade_code()
 
 Create a `pop_1962` and `pop_2012` vectors containing the populations of each city at these years. Print the 2 vectors. 
 
-```{r exo5-2, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup"}
+```{r exo5-2, exercise=TRUE, exercise.blanks = "___+"}
 pop_1962 <- c(___)
 pop_2012 <- c(___)
 ```
@@ -436,10 +435,10 @@ names(pop_2012) <- names(pop_1962) <- cities
 
 ###
 
-What are the cities with more than 200000 people in 1962? For these, how many residents in 2012?
+What are the cities with more than 200000 people in 1962? Save the list of these cities into a vector named `cities200k`. For these, how many residents were there in 2012?
 
 ```{r exo5-4, exercise=TRUE, exercise.blanks = "___+", exercise.setup="exo5-setup2"}
-pop_1962 > 200000
+cities200k <- ___
 ```
 
 ```{r exo5-4-solution, exercise.reveal_solution = TRUE}
@@ -607,3 +606,27 @@ sort(pop_1962, decreasing = TRUE)
 ```{r exo5-12-code-check}
 grade_code()
 ```
+
+
+## Exercise 5
+
+Let's create a named vector containing age of the students in the class, the names of each value being the first name of the students. 
+
+```{r exo2-1, exercise=TRUE, exercise.blanks = "___+"}
+students <- c(
+    "John" = 35,
+    "Jane" = 36
+)
+students
+```
+
+Then (do it in Rstudio this time):
+
+- Compute the average age and its standard deviation
+- Compute the median age
+- What is the maximum, minimum and range of the ages in the class?
+- What are all the student names in the class?
+- Print the sorted ages by increasing and decreasing order
+- Print the ages sorted by alphabetically ordered names (increasing and decreasing)
+- Show a histogram of the ages distribution using `hist()`{.R} and play with the parameter `breaks` to modify the histogram
+- Show a boxplot of the ages distribution using `boxplot()`{.R}
