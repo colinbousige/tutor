@@ -1,47 +1,4 @@
-url: https://lmi.cnrs.fr/r/tutor/
+url: ~
 template:
   bootstrap: 5
-  bootswatch: flatly
-  bslib:
-    border-radius: 0.5rem
-    btn-border-radius: 0.25rem
 
-development:
-  mode: auto
-
-news:
-  cran_dates: false
-
-authors:
-  Colin Bousige:
-    href: mailto:colin.bousige@cnrs.fr
-
-navbar:
-  right:
-   - icon: fa-github
-     href: https://github.com/colinbousige/tutor
-
-home:
-  links:
-  - text: View on GitHub
-    href: https://github.com/colinbousige/tutor
-
-reference:
-  - title: Tutorials
-    contents:
-    - tuto
-    - tutor_examples
-  - title: Peak functions
-    contents:
-    - Gaussian
-    - Lorentzian
-    - sinc
-  - title: High pressure Raman spectroscopy
-    contents:
-    - Pruby
-    - Rshift_to_lambda
-  - title: Peak treatment
-    contents:
-    - dxdy
-    - integ
-    - norm01

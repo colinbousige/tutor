@@ -17,6 +17,7 @@ Suggests:
     rmarkdown,
     tidyverse
 Remotes:
-    rstudio/gradethis
     rstudio/learnr
+    rstudio/gradethis
 VignetteBuilder: knitr
+URL: https://colinbousige.github.io/tutor/
