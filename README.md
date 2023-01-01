@@ -6,7 +6,7 @@
 # Description
 
 This package is a gathering of various interactive exercises for the
-“[Reproducible data treatment with R](http://lmi.cnrs.fr/r/)” class.
+“[Reproducible data treatment with R](https://colinbousige.github.io/Rclass/)” class.
 
 It also contains some user-defined functions that are used in the class.
 
