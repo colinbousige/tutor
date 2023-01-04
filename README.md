@@ -6,14 +6,14 @@
 # Description
 
 This package is a gathering of various interactive exercises for the
-“[Reproducible data treatment with R](https://colinbousige.github.io/Rclass/)” class.
+"[Reproducible data treatment with R](https://colinbousige.github.io/rclass/)" class.
 
 It also contains some user-defined functions that are used in the class.
 
 # Installation
 
 First, install the packages `devtools`, `learnr` and `gradethis` if you
-don’t have them yet:
+don't have them yet:
 
 ``` r
 install.packages("devtools")

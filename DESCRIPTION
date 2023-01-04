@@ -7,8 +7,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-0490-2277"))
   )
 Description: A collection of interactive tutorials to learn R.
-    This goes with the online class [Reproducible data treatment with R](http://lmi.cnrs.fr/r/)
-License: <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-ShareAlike 3.0 License</a>
+    This goes with the online class [Reproducible data treatment with R](https://colinbousige.github.io/rclass/LICENSE)
+License: <a href="https://colinbousige.github.io/tutor/LICENSE" target="_blank">MIT</a>
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
